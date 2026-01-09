@@ -1,0 +1,9 @@
+*.aux
+*.log
+*.bbl
+*.bcf
+*.blg
+*.out
+*.gz
+bin/
+chapters/*.aux

@@ -1,0 +1,242 @@
+\begin{appendices}
+	\markboth{}{} % Clear running headers
+	\chapter{The atmosphere's layers}
+	\label{app:AppendixA}
+	
+	\section{Troposphere}
+	
+	\noindent The troposphere extends from the Earth's surface up to an average altitude of about 10 km. It contains 99\% of the total mass of water vapor and aerosols, making it the most dynamic and weather-active layer. Its composition is made of neutral molecules (N$_{2}$, O$_{2}$, H$_{2}$O), aerosols, and liquid or solid water droplets. The troposphere hosts electrical phenomena like thunderstorms, lightning, fair-weather electric fields, and cosmic ray ionization. It is weakly ionized, because no free electrons can survive the collisions with molecules and ions of air. The tropopause (the upper boundary of the troposphere) is marked by a temperature inversion, where cooling stops and stratospheric warming (due to ozone absorption of UV) begins. This layer acts as a "lid", trapping most weather phenomena below itself~\cite{Troposphere}.
+	
+	\begin{comment}
+	About fair-weather electric fields. A global electric circuit exists, with thunderstorms charging the ionosphere (~300 kV potential difference between Earth and ionosphere). Even in fair weather, a weak (~100 V/m) downward electric field is present.
+	\end{comment}
+	
+	\section{Stratosphere}
+	\noindent The stratosphere is composed of stratified temperature zones, with the warmer layers of air located higher, closer to outer space, and the cooler layers below. The increase of temperature with altitude is a result of the absorption of the Sun's ultraviolet (UV) radiation by the ozone layer, where ozone is exothermically photolyzed\footnote{ Photolysis is a chemical reaction in which molecules of a chemical compound are broken down by absorption of photons.} into oxygen in a cyclical fashion~\cite{Stratosphere}.
+	
+	\section{Mesosphere}
+	\noindent The mesosphere lies above altitude records for aircrafts, while only the lowest kilometers are accessible to balloons. At the same time, it is below the minimum altitude for orbital spacecraft due to high atmospheric drag. This region has only been accessed through the use of sounding rockets, which are only capable of taking measurements for a few minutes per mission. As a result, the mesosphere is the least-understood part of the atmosphere~\cite{Mesosphere}.
+	
+	\section{Ionosphere}
+	
+	\noindent At heights above 60 km, in the thermosphere, the atmosphere is so thin that free electrons can exist for short periods of time, before they are captured by a nearby positive ion. The number of these free electrons is sufficient to affect radio propagation. This portion of the atmosphere contains a partially ionized plasma, referred to as the ionosphere. The ionosphere and extends up to $\sim$1000 km above the sea level. The ionization is caused by several mechanisms. The rate of ionization at any altitude depends on the atmospheric composition as well as the characteristics of the incident radiation at that height. For example, as the solar radiation propagates down through the atmosphere, its various frequency (energy) bands are attenuated by different amounts. At the same time, since the composition of the atmosphere alters with altitude, different ionization processes become predominant at different heights resulting in a layered structure. The number of layers, their heights and their ionization density vary with time and space; the principal layers are three dynamic layers~\cite{Ionosphere}~\cite{barclayPropagationRadioWaves2003}. \\
+	
+	\begin{itemize}
+		\item[-] \textbf{The D layer} is primarily responsible for absorbing low-frequency radio waves. Ionization here is due to the Lyman series-alpha radiation of hydrogen ionizing nitric oxide (NO). In this layer, higher wavelengths experience greater absorption because they move the electrons farther, leading to greater chance of collisions. This is the main reason for absorption of HF radio waves, particularly at 10 MHz and below, with progressively less absorption at higher frequencies.
+		\item[-] \textbf{The E layer}, also known as the Kennelly-Heaviside layer, can reflect radio waves, allowing for long-distance communication. Ionization is due to soft X-ray (1 - 10 nm) and far ultraviolet (UV) solar radiation ionization of molecular oxygen (O$_{2}$). Normally, at oblique incidence, this layer can only reflect radio waves having frequencies lower than about 10 MHz and may contribute to absorption on frequencies above. However, during intense sporadic E events, the E$_{\text{s}}$ layer (sporadic E-layer) can reflect frequencies up to 50 MHz and higher. The E$_{\text{s}}$ layer is characterized by small, thin clouds of intense ionization. Sporadic E events may last for just a few minutes to many hours.
+		\item[-] \textbf{The F layer} has the highest electron density, which implies signals that surpass this layer will escape into space. Electron production is dominated by extreme UV (10 - 100 nm) radiation ionizing atomic oxygen. The F layer consists of one layer (F2) at night, but, during the day, a secondary peak (labeled F1) often forms in the electron density profile. Because the F2 layer remains by day and night, it is responsible for most sky-wave propagation of radio waves and long distance high frequency (HF) radio communications.
+	\end{itemize}
+	
+	\markboth{}{} % Clear running headers
+	\chapter{Ducting propagation}
+	\label{app:AppendixB}	
+	
+	\noindent For heights much less than the scale height ($H \simeq 8$ km), the exponential in Eq. \ref{eq:exponential_N} can be approximated by:
+	
+	\begin{equation}
+		N = N_{s} (1 - \frac{z}{H}),
+	\end{equation}
+	
+	\noindent giving a linear decrease of refractivity with height at a rate of about 40 N units per kilometer at mid latitudes. \\
+	
+	\noindent It can be shown that the radius of curvature, C, of a ray is very well approximated by
+	
+	\begin{equation}
+		C = -\frac{dn}{dz}
+	\end{equation}
+	
+	\noindent at low elevation angles. The curvature of the earth is $1/a$ where $a$ is the Earth’s radius (approximately 6378 km). Thus the curvature of the ray relative to the curvature of the Earth is 
+	
+	\begin{equation}
+		C_{\text{relative}} = -\frac{dn}{dz}-\frac{1}{a},
+	\end{equation}
+	
+	\noindent with 
+	
+	\begin{equation}
+		\frac{1}{a} = 157 \times 10^{-6} \, \text{km}^{-1}.
+	\end{equation}
+	
+	\noindent Since we are often mainly interested in this relative curvature, it is useful to introduce the concept of an effective Earth's radius $a_{\text{eff}} = ka$.\\
+	
+	\noindent Then we have:
+	
+	\begin{equation}
+		C_{\text{relative}} = -\frac{dn}{dz}-\frac{1}{a} = -\frac{dn_{\text{eff}}}{dz} - \frac{1}{a_{\text{eff}}}
+	\end{equation}
+	
+	\noindent where $n_{\text{eff}}$ is the effective refractive index associated with the effective Earth's radius.\\
+	
+	\noindent Note that the curvature of Earth substantially exceeds the downward curvature of the ray. in fact, in the average mid-latitude atmosphere:
+	
+	\begin{equation}
+		C = -\frac{dn}{dz} = -\frac{dN}{dz} 10^{-6} = -40 \times 10^{-6}\,\text{km}^{-1}.
+	\end{equation}\\
+	
+	\noindent Straight line ray propagation relative to the effective Earth's radius can then be arranged by setting $\frac{dn_{\text{eff}}}{dz} = 0$, which leads to: $\frac{1}{a_{\text{eff}}} = 117 \times 10^{-6} \, \text{km}^{-1}$, corresponding to a k factor $k = 4/3$. \\
+	
+	\noindent This is a well known Earth's radius construction, useful in engineering calculations. A ray propagating in a straight line over terrain based on a 4/3 effective Earth's radius is equivalent to a ray propagating in an atmosphere with the average lapse rate (the gradient of the refractivity index with height) of 40 N km$^{-1}$ over the actual terrain. For terrestrial radio links, it is a simple matter to check for terrain clearance or obstruction by joining potential transmitter and receiver positions by straight lines on 4/3 Earth-radius graph. \\
+	
+	\noindent There is a third viewpoint, useful in ducting studies: replacing the Earth with a flat one ($k = \infty $) and modify the curvature of the ray so that the relative curvature between ray and earth is preserved. In this case $n_{\text{eff}}$ and $N$ are replaced by the modified refractive index $m$, and the modified refractivity $M$.
+	
+	\begin{equation}
+		M = N + 10^{6} \times z/a = N + 157 z
+	\end{equation}
+	
+	\noindent Where $z$ is given in kilometers. \\
+	
+	\noindent Note that rays curve upwards relative to a flat earth:
+	
+	\begin{equation}
+		\frac{\partial M}{\partial z} = \frac{\partial N}{\partial z} + 157.
+	\end{equation}\\
+	
+	\noindent Although $N$ decreases by about 40 N km$^{-1}$ (M increases by about 117 N km$^{-1}$) in average conditions at mid latitudes in the lower troposphere, significant deviations from the average do occur. Figure \ref{fig:refraction} shows schematically the classification of different refractive conditions.
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=0.8\textwidth]{images/refraction.png}
+		\caption{Classification of refractive conditions. If the lapse rate of $N$ is less than 40 N km$^{-1}$, the downward curvature of radio rays will decrease, shortening the radio horizon and reducing the clearance above terrain on terrestrial paths; this is known as subrefraction. On the other hand, if the lapse rate of $N$ exceeds 40 N km$^{-1}$, the ray curvature will increase, extending the radio horizon and increasing path clearance; this is known as superrefraction.}
+		\label{fig:refraction}
+	\end{figure}
+
+	\noindent When the lapse rate of N exceeds 157 N km$^{-1}$, or equivalently, $\frac{\partial M}{\partial z} < 0$, then the rays are bent towards the Earth more rapidly than the Earth’s curvature. Consequently, the radio wave is no longer just bending, it's being trapped and reflected repeatedly between an upper and lower boundary. This is known as ducting and can cause rays to propagate to extremely long ranges beyond the normal horizon.\\
+	
+	\noindent The sensitivity of $N$ to variations in the meteorological parameters can be found by differentiating Eq. \ref{eq:refractivity}:
+	
+	\begin{equation}
+		\delta N = 0.26 \delta P + 4.3 \delta e - 1.4 \delta T.
+	\end{equation}
+	
+	\noindent The vertical pressure gradient $ \delta P$ never deviates much from its standard value, while differences of a few degrees in $T$ and a few millibars in $e$ can occur between adjacent air masses in certain meteorological conditions. This can lead to changes of several tens of N units over a height interval of tens of meters, and the formation of a ducting layer.\\
+	
+	\noindent There are two types of ducting propagation, one caused by a surface duct, the other by an elevated duct. Radio energy can become trapped between a boundary in the troposphere and the surface of Earth or sea (surface duct), or between two boundaries in the troposphere (elevated duct). With this trapped propagation, very high signal strengths can be obtained at very long range (far beyond line of sight). Indeed, the signal strength may well exceed its free space value. \\
+	
+	\noindent Equation \ref{eq:refractivity} shows that two processes can cause the formation of high lapse rates: a rapid decrease in water vapor pressure with height, and an increase in temperature with height (a temperature inversion); these mechanisms often occur together.
+	
+	\noindent A ducting layer is immediately identifiable by a negative slope in the modified refractivity versus height curve, therefore three distinct duct types exist (see Figure \ref{fig:duct_types}).\\
+
+	\begin{figure}[!h]
+		\centering
+		\begin{minipage}{0.5\textwidth}
+			\begin{itemize}
+				\item[(a)] \textbf{Surface layer, surface duct}: The critical inversion or refractivity gradient is ground-based. The duct forms entirely within the surface layer (e.g. 100 - 200 m).
+				\vspace{3cm}
+				\item[(b)] \textbf{Elevated layer, surface duct}: An inversion layer exists aloft (e.g., at 500 m altitude), but its influence extends down to the surface.
+				\vspace{3cm}
+				\item[(c)] \textbf{Elevated layer, elevated duct}: The M-profile has a local minimum aloft, trapping waves without reaching the surface. The entire duct is suspended above the surface (e.g., 500 - 1000 m).
+			\end{itemize}
+		\end{minipage}%
+		\begin{minipage}{0.7\textwidth}
+			\includegraphics[width=0.5\linewidth]{images/ducts.png}
+		\end{minipage}
+		\caption{Classification of atmospheric duct types showing (a) surface-based duct, (b) elevated-layer surface duct, and (c) elevated duct, with their characteristic modified refractivity height profiles. Figure taken from~\cite{barclayPropagationRadioWaves2003}. }
+		\label{fig:duct_types}
+	\end{figure}
+	
+	\noindent Both types of surface duct are seen to propagate energy well beyond the normal radio horizon. However, a ducting layer will only trap radio waves if certain geometrical constraints apply. In particular, the angle of incidence at the layer must be very small. A simple rule of thumb can be derived from the total-internal reflection condition of geometrical optics. That is, the maximum angle of incidence $\theta_{\text{max}}$ (in degrees) is related to the change in refractivity $\Delta N$ (in N units) across the layer by:  
+	
+	\begin{equation}
+		\theta_{\text{max}} = 0.081 \sqrt{\left | \Delta N  \right | }   
+	\end{equation}
+	
+	\noindent As $\Delta N$ rarely exceeds 50 N units, $\theta_{\text{max}}$ will be limited between 0.5$^{\circ}$ - 1$^{\circ}$. Simple geometrical considerations show that even energy launched horizontally will intercept an elevated layer at a nonzero angle due to the Earth’s curvature. It follows that ducting layers higher than about 1 km will not significantly affect terrestrial radio links.
+	
+	\markboth{}{} % Clear running headers
+	\chapter{Attenuation of electromagnetic waves}
+	\label{app:AppendixC} 
+	
+	\noindent The electric and magnetic fields propagating in a lossless medium can be written like:
+	
+	\begin{equation}
+		\vec{E}(\vec{r}, t) = \Re\left( E_{0}e^{-i(\vec{k}\cdot \vec{r} - \omega t + \varphi)}  \right) \hat{E} = E_{0}cos\left(- \vec{k}\cdot \vec{r} + \omega t - \varphi \right) \hat{E}
+	\end{equation}
+	
+	\begin{equation}
+		\vec{B}(\vec{r}, t) = \frac{1}{c}\left(\vec{k}\times \vec{E}(\vec{r}, t)\right)
+	\end{equation}
+	
+	\noindent where $E_{0}$ is the amplitude of the electric field, $\hat{E}$ is the polarization versor and $\vec{k}$ is the direction of propagation of the electromagnetic wave. $\omega$ is the angular frequency $\omega = 2 \pi \nu$ and $\varphi$ is the free phase of the wave. \\
+	
+	\noindent No medium except vacuum is lossless, there are a number of physical mechanisms that will interfere with the electromagnetic wave when traveling through a real medium. Depending on the medium and wavelength, the effects of some of these phenomena cannot be neglected. Since any diffraction or refraction due to terrain and atmospheric irregularities has been neglected in this work, only polarization effects and extinction through the medium will be considered.
+	
+	\section{Extinction}
+	\label{app:AppendixC.1} 
+	\noindent Extinction generates an attenuation in wave intensity due to combined absorption and scattering. \\
+	
+	\noindent To take into account possible extinction losses we need to reach an equation for $\vec{E}(\vec{r}, t)$ where $E_{0}=E_{0}(r)$. This is obtained by representing the coefficient $\beta$ as the imaginary component of the wave vector $\vec{k}$, ($\vec{k} = \vec{k}_{0} - i\beta$). Therefore the wave equation is:
+	
+	\begin{equation}
+		\begin{split}
+			\vec{E}(\vec{r}, t) &= \Re\left( E_{0}e^{-i([\vec{k}_{0} - i\beta]\cdot \vec{r} - \omega t + \varphi)} \right) \hat{E} \\
+			&= E_{0}e^{-r\beta} \cos\left( -\vec{k}\cdot \vec{r} + \omega t - \varphi \right) \hat{E} = \vec{E}(\vec{r}, t)\text{\Large$\tau$}(r, \beta)
+		\end{split}
+	\end{equation}
+	
+	\noindent $\text{\Large$\tau$}(r, \beta)$ is the ratio between the amplitude of a wave after it has traveled a distance $\Delta r$:
+	
+	\begin{equation}
+		\text{\Large$\tau$}(r, \beta) = \frac{E(r + \Delta r, t)}{E(r, t)} = e^{-\Delta r \beta}
+	\end{equation}
+	
+	\noindent also called transparency. If $\beta = 0$, $\vec{k}$ is real and $\text{\Large$\tau$} = 1$ , describing a fully transparent medium. \\
+	
+	\noindent When the transparency was first described, it was through the measurements of absorption of light of different media. Nowadays it is written in terms of the radiant power $P$:
+	
+	\begin{equation}
+		P (\Delta r) = \frac{dQ_{e}(\Delta r)}{dt} = P_{0} e^{-\Delta r \gamma} = P_{0}\eta_{\text{att}}(\Delta r, \gamma)
+	\end{equation}
+	
+	\noindent where $\eta_{\text{att}}$ is the attenuation efficiency, and $\eta_{\text{att}} < 1 \hspace{0.1cm} \forall \hspace{0.1cm} \gamma > 1$.\\
+	
+	\noindent The average radiant energy is:
+	
+	\begin{equation}
+		<Q_{e}> = \frac{1}{2} \epsilon_{0}E^{2}_{0} V   
+	\end{equation}
+	
+	\noindent where $\epsilon_{0}$ is the free space permittivity, and $V$ is the volume occupied by the wave. Then, since $P\propto E^{2}$, we obtain that $\gamma = 2\beta$:
+	
+	\begin{equation}
+		\gamma = - \frac{1}{\Delta r} \text{ln}\left(\frac{P (\Delta r)}{P_{0}} \right)= - 2\frac{1}{\Delta r} \text{ln} \left(\frac{E (\Delta r)}{E_{0}}\right) = 2 \beta.
+	\end{equation}
+	
+	\noindent Since $[\gamma]$ = m$^{-1}$, we can define a characteristic distance that is the inverse of it, called attenuation length:
+	
+	\begin{equation}
+		L_{\text{att}} = \gamma ^{-1} \rightarrow \eta_{\text{att}} = e^{-r/L_{\text{att}}}.
+	\end{equation}
+	
+	\section{Polarization effects}
+	\label{app:AppendixC.2}
+	
+	\noindent If the polarization of the incoming radiation does not match that of the antenna, the performance of the antenna is reduced, and the received power decreases. \\
+	
+	\noindent This is taken into account by the polarization loss factor $\eta_{\text{PLF}}$. This factor quantifies the power loss due to polarization mismatch between the incoming wave and the antenna's polarization. It therefore is given by:
+	
+	\begin{equation}
+		\eta_{\text{PLF}} = \left|\hat{\rho}_{w} \cdot \hat{\rho}_{a}\right|^{2}
+	\end{equation}
+	
+	\noindent where $\hat{\rho}_{w}$ is the polarization versor of the incoming wave and $\hat{\rho}_{a}$ the polarization versor of the antenna.\\
+	
+	\noindent If the wave and antenna are co-polarized (perfectly matched), $\eta_{\text{PLF}} = 1$. If they are cross-polarized (orthogonal), $\eta_{\text{PLF}} = 0$. \\
+	
+	\noindent To evaluate $\eta_{\text{PLF}}$ in a system that involves not only two antennas but a reflecting target in between, the contribution of the target to the polarization vector must be analyzed too. In this work a target that corresponds to the collection of multiple particles has been considered perfectly reflecting in this sense, meaning that they don't affect the polarization of the wave. \\
+	
+	\noindent For a target that reflects perfectly an incoming wave, the vector component of the polarization perpendicular to the scattering plane is conserved, while the one parallel to the scattering plane is rotated by 90$^{\circ}$. This description is represented in Figure \ref{fig:polarization} for better understanding. 
+	
+	\newpage
+	
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=0.9\textwidth]{images/reflection.png}
+		\caption{Polarization vectors before and after reflection from target, in the assumption of perfectly reflecting target. The parallel component of the polarization vector is rotated of 90$^{\circ}$ while the perpendicular component is conserved.}
+		\label{fig:polarization}
+	\end{figure}
+	
+	\noindent In this work, for any simulation, transmitter and receiver are always considered to have the same polarization angle $\epsilon_{\text{T}} = \epsilon_{\text{R}}$, measured in the wave frame starting from $\hat{Y}_{\text{w}}$ and rotating counterclockwise from the point of view of the antenna. \\
+	
+	\noindent Attention must be paid to the fact that with these assumptions $\eta_{\text{PLF}} = 1$ for any geometry between target and detection system.
+	
+\end{appendices}

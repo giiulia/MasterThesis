@@ -1,0 +1,96 @@
+\documentclass[11pt, article, twoside,openright]{book}
+\usepackage[absolute]{textpos}	
+
+\usepackage[backend=biber, 
+style=phys,
+sorting=none,
+giveninits=true,
+maxnames=1, 
+minnames=1,
+articletitle=true, 
+chaptertitle=false]{biblatex}
+
+\DeclareFieldFormat[unpublished]{title}{"#1"}
+\DeclareFieldFormat[online]{title}{"#1"}
+
+% Dimensione dei margini
+\usepackage[a4paper,top=3cm,bottom=3cm,left=3cm,right=3cm]{geometry} 
+% Lingua del testo
+\usepackage[italian]{babel}
+% Codifica del testo
+\usepackage[utf8]{inputenc}
+% Encoding del testo
+\usepackage[T1]{fontenc}
+% Permette di generare testo fittizio. Mi è stato utile 
+% per capire quale sarebbe stata l'impostazione del 
+% testo nella pagina prima che scrivessi un determinato paragrafo
+\usepackage{booktabs}
+\usepackage{lipsum}
+% Per ruotare le immagini
+\usepackage{rotating}
+% Per modificare l'header delle pagine 
+\usepackage{fancyhdr}  
+
+% Per inserire gli hyperlinks
+\usepackage{hyperref}   
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	citecolor=magenta,
+	urlcolor=magenta
+}
+
+\addbibresource{thesis_references.bib}
+
+\fancypagestyle{plain}{%
+	\fancyhf{} % Clear all header and footer fields
+	\fancyhead[LE,RO]{\thepage} % Page numbers in top right/left
+	\renewcommand{\headrulewidth}{0pt} % Remove header line
+}
+
+\begin{document}
+	\noindent \textbf{Nome:} Giulia Cantarini  \hfill \textbf{Mat:} 866117\\
+	\textbf{Telefono:}  + 39 334 9906587 \hfill \textbf{Corso di laurea:} Magistrale in Fisica \\\\
+	\textbf{Relatori:} Prof. Dott. Anna Nelles, Prof. Francesco Terranova\\
+	\textbf{Correlatori:} Dott. Enrique Huesca Santiago, Dott. Giulia Brunetti
+	
+	\vspace{0.3cm}
+	
+	\begin{center}
+		{\Large \bfseries Sessione di novembre 2025}
+	\end{center}
+	
+	\begin{center}
+		{Modellare la riflessione di segnali radio da parte di nubi atmosferiche come possibile sorgente di fondo proveniente dall'orizzonte per osservatori di astroparticelle}
+	\end{center}
+	
+	\begin{center}
+		{\Large \bfseries Riassunto}
+	\end{center}
+	
+	\vspace{0.1cm}
+	
+	\noindent La fisica delle particelle ebbe origine dal desiderio di studiare i meccanismi di produzione e accelerazione delle particelle alle energie più elevate ed i loro metodi di trasporto su scala cosmica. Osservando particelle cosmiche ad alte energie, questo campo sonda gli estremi delle interazioni fondamentali ed investiga la natura della materia ed energia oscure, esplorando così le origini del nostro universo. \\
+	
+	\noindent Questo ramo della fisica riguarda lo studio dei cosiddetti messaggeri cosmici. I raggi cosmici, i neutrini e i raggi gamma possono raggiungere il nostro pianeta partendo dalle più remote sorgenti astronomiche del cosmo, portando informazioni altrimenti irraggiungibili. Nell'ultimo secolo, lo spettro energetico di queste particelle è stato studiato tramite rivelazione diretta nello spazio per le componenti a bassa energia, e tramite rivelazione indiretta degli sciami atmosferici per quelle più energetiche.\\
+	
+	\noindent Un potente e comprovato metodo per rivelare sciami di particelle secondarie sia in aria che in mezzi densi, è la tecnica della rivelazione in radiofrequenza. Durante gli ultimi 20 anni, questa tecnica si è sviluppata grazie ad esperimenti pionieristici come CODALEMA \cite{escudieMultiwavelengthObservationCosmicray2019}, AERA \cite{pierreaugercollaborationCosmicRayEnergyScale2024} e Tunka-Rex \cite{lenokTunkaRexVirtualObservatory2021}, che miravano agli sciami atmosferici. Dopo i primi studi sugli sciami nel ghiaccio terrestre con ANITA \cite{deaconuSearchUltrahighenergyNeutrinos2021}, ARA \cite{allisonLowthresholdUltrahighenergyNeutrino2022} e ARIANNA \cite{ariannacollaborationARIANNAMeasurementCosmic2019}, esperimenti di nuova generazione come RNO-G \cite{rno-gcollaborationMultimessengerPotentialRadio2023}, stanno ampliando le frontiere della rivelazione in radiofrequenza per le astroparticelle. Questo lavoro si concentra sui radio array con orientamento verso l'orizzonte, i quali si focalizzano sugli sciami orizzontali dovuti a neutrini cosmici radenti la Terra (di solito hanno origine da un neutrino tau che partecipa a un'interazione di corrente carica). Progetti come GRAND \cite{decoeneRadiodetectionNeutrinoinducedAir2021}, BEACON \cite{southallDesignInitialPerformance2023} e TAROGE \cite{namTaiwanAstroparticleRadiowave2016} costituiscono gli attuali casi di interesse. Direzionandosi verso l'orizzonte, è possibile osservare un ampio volume effettivo (ad esempio le montagne circostanti), creando uno strumento ad alta sensibilità adatto alla ricerca di neutrini ultra energetici. Tutto ciò è trattato nel Capitolo 1. \\
+	
+	\noindent Una sfida importante per la ricerca dei neutrini, è distinguere i segnali dovuti ad astroparticelle dal fondo circostante. Quest'ultimo deve essere compreso precisamente, solitamente con accurate simulazioni. Le sfide comprendono distorsioni strumentali, l'identificazione dell'origine del rumore, e nel caso di segnali radio, effetti di propagazione. Nello studio delle telecomunicazioni, gli effetti sulla propagazione legati all'atmosfera sono categorizzati in cielo sereno e cielo coperto.\\
+	
+	\noindent Questa tesi si concentra sulla rivelazione di astroparticelle ed i relativi problemi legati al maltempo. Gli effetti meteorologici sulla propagazione delle onde radio sono problematici per via della loro variabilità. In particolare, i segnali radio provenienti dall'orizzonte sono gravemente distorti dall'atmosfera, per via del lungo percorso di propagazione attraverso la parte più densa dell'atmosfera, dove effetti di rifrazione e assorbimento sono esaltati. Di conseguenza, l'accurata identificazione delle sorgenti di rumore provenienti dall'orizzonte è complicata, e con essa lo sviluppo di modelli di fondo affidabili. \\
+	
+	\noindent Il Capitolo 2 delucida i meccanismi di propagazione delle onde radio che dominano la rivelazione a lungo raggio, con particolare interesse verso gli effetti di bassa atmosfera (troposfera). Questa priorità è di natura strategica: nella troposfera si concentrano le perturbazioni atmosferiche più significative, e la potenza sei segnali coinvolti è maggiore per via della dipendenza inversa dalla distanza al quadrato. Mentre gli strati superiori dell'atmosfera possono presentare sfide differenti, questa tesi si concentra sulla bassa atmosfera in condizioni di cielo coperto. Per modellare il fondo, dobbiamo tenere in considerazione la presenza di gocce d'acqua, pioggia e grandine, in questo campo note come idrometeore. Queste particelle diffondono ed assorbono onde radio. Tali effetti sono descrivibili analiticamente se la forma delle meteore è sferica ed il materiale è omogeneo, la quale è un'approssimazione comprensibile nel caso di nebbia o gocce d'acqua relativamente piccole. \\
+	
+	\noindent Per comprendere le perturbazioni atmosferiche, sono usati i radar meteorologici; l'obiettivo è determinare il luogo e la densità della perturbazione misurando le onde radio trasmesse da un stazione nota e poi diffuse. La caratterizzazione del fondo per la rivelazione di astroparticelle affronta il problema inverso: stimare il segnale atteso da riflessioni atmosferiche note. \\
+	
+	\noindent Questo elaborato presenta una metodologia rigorosa per modellare l'eco radar, quantificato tramite la sezione d'urto radar di diffusione, di una generica perturbazione atmosferica. L'obiettivo è fornire un voltaggio atteso nel caso di una singola stazione ricevente dimostrativa. Una perturbazione particolarmente intensa è stata simulata per verificare l'ipotesi principale, che riguarda la possibilità di rivelazione degli effetti di riflessione legati al maltempo. \\
+	
+	\noindent Un software di modellazione preesistente è stato riproposto per questo lavoro, ed introdotto nel Capitolo 3: MARES (Macroscopic Approximation of the Radar Echo Scatter). Si tratta di un modello semi-analitico concepito originariamente per simulare l'eco radar di sciami di particelle in mezzi densi. Il software in questione è estremamente versatile, essendo basato sui principi fondamentali dell'elettromagnetismo. \\
+	
+	\noindent Nel Capitolo 4, è descritto lo svolgimento dei necessari controlli di coerenza del codice. Una soluzione originale per modellare grandi volumi di sorgenti di diffusione (le idrometeore) è stata implementata e documentata. Per esplorare l'ampio spazio dei parametri, si è ricorsi alla parallelizzazione delle simulazioni. Questa tesi ha permesso un'ampia visione delle configurazioni in cui la diffusione dovuta ad idrometeore rappresenta un fondo di rumore rilevante. In particolare, il voltaggio ricevuto dipende dalla geometria della riflessione, dalla frequenza del segnale incidente e dal potere trasmesso. Le simulazioni confermano che le nubi instabili costituiscono una sorgente di fondo non trascurabile. Progetti futuri sono necessari per considerare condizioni meteorologiche alternative e l'influenza di effetti a cielo sereno.
+	
+	\clearpage
+	\pagestyle{plain} % Forza lo stile plain per la bibliografia
+	\printbibliography[title=Riferimenti]
+\end{document}

@@ -1,0 +1,184 @@
+\chapter{Astroparticle radio detection}
+
+\noindent In this chapter, Section~\ref{sec:astroparticles} discusses the origins of astroparticle physics, its main goals and the current scenario. The topic of this thesis is motivated by radio detection of these cosmic particles. Therefore, an overview of the current experimental landscape is presented in Section~\ref{sec:radio_detection}.
+
+\section{The astroparticle scenario}
+\label{sec:astroparticles}
+
+\noindent Astroparticle physics seeks to advantage our knowledge of fundamental physics, which involves the basic building blocks of matter, the fundamental forces, the origin and evolution of the universe, and the behavior of spacetime.\\
+
+\noindent The study of natural radioactivity, pioneered by Henri Becquerel and Marie Curie (among others), at the end of the 19th century, provided our first glimpse into the structure of matter. To probe matter at even smaller scales science must employ progressively higher energies, as dictated by Heisenberg's uncertainty principle:
+
+\begin{equation}
+	\label{eq:Heisenberg}
+	\Delta x \simeq \frac{\hbar}{\Delta p}.
+\end{equation}
+
+\noindent The reduced Planck constant ($\hbar = h/2\pi = 10^{-34}$ J$\cdot$s) sets the scale for high-energy physics. Extraterrestrial radioactivity was discovered in the late 1910's, with the name, coined by Victor Hess, of cosmic rays. This marked the birth of high energy astrophysics. Nowadays, terrestrial accelerators have reached the TeV scale, probing distances $\sim 10^{-20}$ m (considering Equation~\ref{eq:Heisenberg}). Nevertheless, the energies we can investigate on Earth are still lower than the most energetic cosmic rays (PeV and above). At these energies, phenomena predicted by beyond the Standard Model theories, such as quantum gravity effects, supersymmetry, or extra dimensions could become apparent. \\
+
+\noindent The study of these extraterrestrial high-energy beams can improve our knowledge of fundamental particle interactions, and of extreme astrophysical phenomena. While electromagnetic observations (traditional astronomy\footnote{Traditional astronomy here refers to the operation of direct-detection telescopes.} covers from radio to $\gamma$-rays) reveal thermal and non-thermal emission processes, and gravitational waves probe bulk mass motions, astroparticles directly sample non-thermal acceleration sites. The synergy between these complementary information channels defines modern \textit{multi-messenger} astronomy.\\
+
+\noindent Astroparticle physics concerns not only cosmic rays, but also gamma rays, whose detection requires specialized technology to compensate for atmospheric absorption. Dedicated instruments for gamma rays detection include space-based observatories like the Fermi Large Area Telescope (Fermi-LAT)~\cite{thakoreHighSignificanceDetectionCorrelation2025} and the ground-based Imaging Atmospheric Cherenkov Telescopes (IACTs) like MAGIC~\cite{presterCharacterisationAtmosphereVery2024} and CTA~\cite{presterCharacterisationAtmosphereVery2024}. The discovery of a diffuse flux of high-energy astrophysical neutrinos, in 2013, by the IceCube collaboration, completed the modern astroparticles landscape, adding neutrinos to the established channels of cosmic rays and gamma rays.\\
+
+\noindent At low energies, up until $\mathcal{O}(100 \text{ MeV})$, the sources of extraterrestrial radiation are dominated by the Sun. Meanwhile, \textit{high-energy} particles are mostly produced outside the Solar System. The energy thresholds defining the \textit{high-energy} regime are dependent on the astroparticle type, as evidenced by the diffuse intensity spectra in Figure~\ref{fig:astroparticles}. While gamma rays enter this regime around 1 GeV, the threshold rises to approximately 1 TeV for neutrinos and about 10 PeV for cosmic rays.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/research_plots/astroparticles.png}
+	\caption{Comparison of modern models and measurements of energy-corrected flux as a function of energy for \textit{high-energy} astroparticles from ground-based and space-based observatories. In black, is represented diffuse gamma-ray emission, in blue, diffuse neutrino fluxes and in red hadronic cosmic rays. Figure taken from~\cite{fangLinkingHighenergyCosmic2018a}.}
+	\label{fig:astroparticles}
+\end{figure}
+
+\subsection{Cosmic rays}
+
+\noindent The energy content of the cosmic rays (CR) flux is dominated by protons (more than 90\% of the total), nuclei and electrons in the energy range of $10^{9} - 10^{12}$ eV. Plausible models for their acceleration point to sources such as supernovae, active galactic nuclei, pulsars, and gamma-ray bursts. However, the energy spectrum extends up to $10^{20}$ eV, characterizing the so-called ultra-high-energy cosmic rays (UHECRs). This challenges theoretical models as their acceleration processes require extreme mechanisms and their inevitable escape from the Milky Way's magnetic fields implies an extragalactic origin~\cite{fraschettiAccelerationUltraHighEnergyCosmic2008}.\\
+
+\noindent The origin of UHECRs is still unknown. Measurements by the Pierre Auger Observatory (Auger)~\cite{pierreaugercollaborationPierreAugerObservatory2015} find a power-law spectrum, $\Phi \propto E^{-2.6}$. The decline above $6 \times 10^{10}$ GeV, is probably due to the interaction of UHECRs with cosmic radiation backgrounds such as the cosmic microwave background (CMB) or an upper limit of the particle energy reachable by the astrophysical accelerator. \\
+ 
+\noindent In Figure \ref{fig:astroparticles}, the total cosmic-ray spectrum (thin, solid red) is decomposed into two composition groups: light (dashed red; H and He) and medium-heavy (dotted red; CNO, Si, Fe). 
+
+\subsection{Cosmic neutrinos}
+
+\noindent The IceCube Observatory discovery of a diffuse flux of high-energy astrophysical neutrinos, in 2013, revealed an isotropic distribution and flavor mix, indicating a predominantly extragalactic origin~\cite{halzenHighenergyNeutrinoAstrophysics2017}. The observation of approximately equal neutrino flavors at IceCube is a direct test of neutrino oscillation physics over cosmological baselines. In the years since, IceCube has successfully identified the first evidence of astrophysical neutrino sources, including the active galaxy NGC 1068, our own Galactic Center, and the blazar TXS 0506+056. Any deviation from the standard flavor ratio could point to new physics, such as interactions with dark matter or sterile neutrinos. \\
+
+\noindent The production mechanism of cosmic neutrinos in their sources is hadronic: cosmic rays accelerated within interact with ambient matter or radiation fields to produce charged hadrons, which then decay weakly and generate the observed neutrinos.\\
+
+\noindent Potential sources include violent environments capable of accelerating cosmic rays, such as active galactic nuclei, gamma-ray bursts, and starburst galaxies~\cite{halzenHighenergyNeutrinoAstrophysics2017}. \\
+
+\noindent The theoretical framework is illustrated in Figure~\ref{fig:astroparticles}, where the PeV neutrino flux (solid blue) is modeled from two such processes: interactions of cosmic rays confined within galaxy clusters with the intracluster medium (dashed blue), and interactions of UHECRs with the cosmic microwave and extragalactic background light (CMB/EBL) during intergalactic propagation (dash-dotted blue).
+ 
+\subsection{Gamma ray astronomy}
+
+\noindent A $\gamma$-ray counterpart is a direct prediction of the hadronic processes responsible for neutrino production. When cosmic rays interact to produce charged hadrons (the parents of neutrinos), they can also produce neutral pions, which decay into high-energy $\gamma$-rays. If the source environment is transparent to these $\gamma$-rays, they can escape directly. However, for distant extragalactic sources, these very-high-energy photons interact with the extragalactic background light (EBL), losing energy as they travel. This process repopulates the GeV energy band, suggesting that a significant fraction of the Fermi-LAT extragalactic $\gamma$-ray background (EGB) could originate from the same population of sources responsible for the astrophysical neutrino flux. \\
+
+\noindent This connection is illustrated in Figure~\ref{fig:astroparticles}. The modeled $\gamma$-ray flux from the total cosmological population of neutrino sources (solid black) is comparable to the non-blazar component of the Fermi EGB (gray box). This agreement suggests that hadronic processes in these sources can explain most of the unresolved extragalactic $\gamma$-ray background. The separate contribution from cosmic-ray interactions in the intracluster medium alone (dash-dotted black) is subdominant, indicating that galaxy clusters are just one of several source classes contributing to this background~\cite{fangLinkingHighenergyCosmic2018a}.
+
+\section{The radio detection technique}
+\label{sec:radio_detection}
+
+\noindent The advent of powerful digital processing, at the beginning of this century, has enabled the detection of radio signals from the universe in new scales of quantity and precision that were impossible before. Nowadays, the radio technique brings to the field of multi-messenger astronomy high-precision measurements combined with a cost-effective exposure, covering up to dozens or even hundreds square kilometers of effective detection area. This feature is extremely valuable when searching the universe's rarest, highest-energy particles.
+
+\subsection{Traditional radiotelescopes}
+
+\noindent Traditional radio observatories study astronomical objects by analyzing their steady radio emission. These objects can be planets, satellites, asteroids, and comets as well as pulsars, radio galaxies, supernova remnants and the cosmic microwave background. Because of the large distance of those radio sources from Earth, their signals are weak, so radiotelescopes require large antennas, and a high-sensitivity record system. \\
+
+\noindent A radio antenna is a receiver that collects electromagnetic waves in a determined bandwidth and polarization, from a selected range of directions. They may be used individually or linked together electronically in an array, improving the covered area, sensitivity and directivity. Radio observatories are preferentially located far from population centers to avoid interference form radio, television, radar and other anthropogenic devices. They have approximately an 100\% duty cycle, due to not being limited by daylight, and cost-effective detectors. Therefore, the exposure of radio observatories can be much larger than the optical counterparts. \\
+
+\noindent The most straightforward kind of telescope is the single dish. A large, usually parabolic reflector that collects radio waves from a specific region of the sky and focuses them onto an antenna (a "feed") at the dish's focal point. For a single dish, resolution is limited by diffraction~\cite{condonEssentialRadioAstronomy}:
+
+\begin{equation}
+	\theta \simeq \frac{\lambda}{D},
+\end{equation}
+
+\noindent where $\lambda$ is wavelength and $D$ is the dish diameter. The larger the collecting area of the dish, the fainter the objects it can detect. Since radio waves have long wavelengths (from $\leq$1 cm to more than thousands of km), achieving sharp images requires impossibly large dishes. Still, the observatory that discovered the first binary pulsar, providing the first indirect evidence for gravitational waves, was a single aperture telescope~\cite{damour1974DiscoveryFirst2015}. \\
+
+\noindent The radio interferometry technique is what revolutionized radio astronomy. The same sharp signal can be detected with an enormously large dish or combining the signals from an array of smaller dishes spread over a large distance, but the latter is much more technologically feasible. In this context, beamforming is the process of using software to combine these individual signals electronically to create a sensitive, steerable "virtual dish."\\
+
+\noindent In this case, the distance between two telescopes in the array, the baseline (denoted as $B$), is the effective diameter of the giant virtual telescope. The angular resolution of the array becomes 
+
+\begin{equation}
+	\theta = \frac{\lambda}{B}.
+\end{equation}
+
+\noindent By observing a source for many hours as the Earth rotates, the telescopes effectively fills in the "gaps" of the virtual giant dish. This data is then mathematically transformed into a detailed image of the sky~\cite{wijnholdsFisheyeObservingPhased2010}. \\
+
+\noindent LOFAR (LOw Frequency ARray)~\cite{horandelStatusPerspectivesRadio2019} is a good example of next-generation interferometric telescope. Instead of large movable dishes, it uses thousands of simple, fixed dipole antennas spread across multiple countries in Europe. It uses sophisticated digital beamforming to "point" at different parts of the sky. The science cases of LOFAR include detecting solar bursts and conducting deep extragalactic surveys to understand galaxy formation and evolution. This also doubles as an astroparticle detector for cosmic rays, showing the tight link between the two fields. Low-frequency radio telescopes are the only instruments that can hunt for the faint signature of the burning of neutral hydrogen that filled the universe in its early stages, allowing us to study the universe's "first light". Similarly, OVRO-LWA (Owens Valley Radio Observatory - Long Wavelength Array)~\cite{andersonNewLimitsLowfrequency2019} is also a digital low-frequency array. Despite being employed to study the Sun's and Jupiter's radio emissions, and the structure of our galaxy, it was specifically designed to be a cosmic ray and neutrino detector. In fact, astroparticle traces are transient, which is also the case for some astrophysical studies. OVRO-LWA's dense core of antennas and its precise timing allow it to capture the extremely short radio pulses from UHECR air showers. Its high sensitivity makes it a competitive instrument in the search for EeV neutrinos. Current experimental limits from IceCube constrain the diffuse flux of cosmogenic\footnote{Cosmogenic (or GZK) neutrinos are produced when ultra-high-energy cosmic rays interact with cosmic photon backgrounds like the CMB during propagation, as opposed to neutrinos produced directly at astrophysical sources.} neutrinos at 1 EeV to be <0.1 events/(year $\cdot$ km$^{2}$)~\cite{m.meieretal.icecubecollaborationRecentCosmogenicNeutrino2024}. \\
+
+\noindent Moving to future observatories, LOFAR is also an important pathfinder for SKA (Square Kilometer Array), which will be the world's largest interferometer, with a collecting area of 1 square kilometer. SKA aims to tackle fundamental questions in cosmology by testing gravity, mapping cosmic structure, tracing the history of hydrogen, and searching for the origins of life~\cite{weltmanFundamentalPhysicsSquare2020}. Its digital backbone will be so powerful it will also be capable of vast astroparticle physics searches.
+
+\newpage
+ 
+\subsection{Astroparticle radiotelescopes}
+
+\noindent Astroparticle radio detectors study single, ultra-high-energy astroparticles by capturing the brief, impulsive radio flash they generate when they intercept Earth. The energy threshold for radio detection of astroparticles is about 100 PeV; the signal produced by less energetic particles is buried under terrestrial radio interference and natural noise. This limit allows radio detectors to focus on the transition range between galactic and extragalactic astroparticle sources. This transition is the so-called "knee" in the CR spectrum, see the bump in Figure~\ref{fig:astroparticles} at $10^{9}$ GeV.\\
+
+\noindent Ground-based experiments detect cosmic rays indirectly because of their interaction with the atmosphere, which generates particle showers, also called Cosmic Ray Extensive Air Showers (CREAS). Neutrinos, which have a much smaller cross-section, require a massive target volume to achieve a detectable event rate. While denser materials exist, the only practical detection method is by using naturally occurring, optical or radio transparent media like deep ice or water. As the name suggests, CREAS are much more extensive, with length scales of kilometers, then particle cascades in dense media, which develop within meters.
+
+\subsubsection{Radio emission from particle cascades}
+
+\noindent All particle showers cause coherent radio emission generated essentially by the relativistic electrons and positrons in the electromagnetic component of the shower. Several mechanisms contribute to the total emission, the dominant ones being the so-called geomagnetic emission and the Askaryan effect. The former is due to the dipole current induced by the deflection of charged particles by the Earth's magnetic field. The latter is radiation due to the time variation of the net charge excess (see Figure~\ref{fig:geomagnetic_askaryan}). The geomagnetic effect generally dominates in air showers and it is negligible in dense media (because of the reduced length of the shower), where the Askaryan effect dominates. However, both the Askaryan and the geomagnetic effect are important in air. A more detailed explanation can be found in Reference~\cite{schroderRadioDetectionCosmicRay2017}. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/askaryan_and_geomagnetic_effect.png}
+	\caption{Two radio emission mechanisms that have been experimentally confirmed: On the left, the geomagnetic deflection of electrons and positrons causes linearly polarized radio emission. On the right, the time-variation of the charge excess in the shower front causes radially polarized radio emission, known as Askaryan effect. Figure taken from~\cite{schroderStatusRadioTechnique2016}.}
+	\label{fig:geomagnetic_askaryan}
+\end{figure}
+
+\noindent This radio emission, regardless of its source mechanism, is coherent when the emitted wavelength exceeds the spatial extent of the charge separation within the cascade, which is typically set by the thickness and width of the relativistic shower front. This condition is usually met for radio frequencies in the 100 - 1000 MHz range, where the corresponding wavelengths span from tens of centimeters to meters. As a consequence of coherence, the amplitude of the radio emission scales linearly with the number of electrons in the shower ($E \propto N$), and the power quadratically ($P\propto N^{2}$). Since the number of electrons in the shower is approximately proportional to the primary energy, the total power in the radio signal scales quadratically with the energy of the primary particle~\cite{pierreaugercollaborationPierreAugerObservatory2015}.
+\begin{comment}
+the relevant effective thickness of the shower front depends on the observer angle.  Generally, at larger distances to
+the shower axis full coherence is only achieved for larger wavelengths, which implies that measurements
+at lower frequencies allow for larger observation angles and larger detector spacings.
+\end{comment}
+
+
+\newpage
+\subsubsection{The geometry of radio emission of particle cascades}
+
+\noindent The propagation speed of the radio waves is defined by the refractive index $n$ of the medium. Cherenkov-like effects appear in both air and dense media. At a certain angle, namely the Cherenkov angle, of $\theta_{c} \simeq \text{arccos} (1/n) \simeq 1^{\circ}$ in air, radio waves and ultra relativistic particles propagate roughly at the same speed. Thus, at this angle radiation is coherent up to much smaller wavelengths, corresponding to several GHz. Therefore, a Cherenkov ring with a typical diameter of around 200 m (depending on observation level and shower inclination) is seen in the radio footprint of air showers on ground, in particular at higher frequencies (see Figure 3 in Reference~\cite{schroderRadioDetectionCosmicRay2017}). For showers in dense media, the refractive index is much larger and a significant emission strength is only observed close to the Cherenkov angle, which is about 56$^{\circ}$ in ice. \\
+
+\noindent Whatever the medium, these Cherenkov-like features, such as the cone-like focusing of emission, do not depend on the actual emission mechanism. The Cherenkov ring is not only expected for Cherenkov light emitted by particles faster than the speed of light in the medium, but for any kind of coherent electromagnetic emission. To say it clearly: radio emission by particle showers is \textbf{not} Cherenkov light at MHz and GHz frequencies, but caused by other emission mechanisms already discussed.\\
+
+\noindent An important point to note is that radio pulses are short in time with typical pulse widths of $\mathcal{O}(\text{ns})$, corresponding to a broad frequency spectrum. This means that the radio pulse contains only a few electromagnetic wave oscillations at each frequency, which makes air-shower pulses very different to radio signals used for technical purposes like communication. Thus, one has to be careful when trying to apply general theorems of radio engineering on the radio signal emitted by air-showers. Moreover, due to the short nature of the radio pulse, its measured shape significantly depends on the bandwidth of the measurement device. Consequently, the main information contained in a measured radio pulse is only its amplitude and arrival time.
+
+\subsubsection{Modern experiments}
+
+\noindent The first generation of digital radio experiments for cosmic rays successfully demonstrated the feasibility of the technique. Two pioneering arrays were LOPES (LOFAR PrototypE Station)~\cite{apelFinalResultsLOPES2021}, located in Karlsruhe, Germany, and CODALEMA (COsmic-ray Detection Array with Logarithmic Electro-Magnetic Antennas)~\cite{escudieMultiwavelengthObservationCosmicray2019}, located at the radioastronomy station of Nançay, France. Triggered by the KASCADE and Grande particle detector arrays, LOPES was operated from 2003 to 2013, in the 40-80 MHz band, proving that digital radio interferometry could detect air showers even at a site with high radio-frequency interference. In contrast, CODALEMA was built in a radio-quiet zone. Since the co-located particle detector array was limited in accuracy, in later stages, dedicated antenna stations with self-triggering capability were installed, and the triggered events were cross-checked with the coincident measurements of an array of 13 scintillators detecting air-shower particles. With these measurements CODALEMA provided evidence for the geomagnetic and Askaryan emission mechanisms ~\cite{ardouinGeomagneticOriginRadio2009}. CODALEMA consisted of a 1 km$^{2}$ large, sparse array of autonomous antenna stations operating in the frequency band of 20 - 200 MHz, and a compact array of cabled antennas triggered by the scintillator array. \\
+
+\noindent AERA (Auger Engineering Radio Array)~\cite{pierreaugercollaborationCosmicRayEnergyScale2024} is a radio detector array that was integrated into the Pierre Auger Observatory in Argentina to demonstrate and exploit the radio detection technique for cosmic rays. It's technical mission is to demonstrate that the radio technique can be applied to large-scale arrays. \\ \begin{comment}Scientifically, the first goal of AERA was to better understand the physics of the radio emission, e.g., by measuring the polarization of the radio signal, which confirmed the Figure \ref{fig:geomagnetic_askaryan}.\\\end{comment}
+
+\noindent LOFAR's detailed measurements of air showers have been exploited to gain deeper insight in the radio emission, and the change of the radio signal during thunderstorms~\cite{j.r.horandelforthelofarcollaborationandpierreaugercollaborationRadioDetectionAir2016}. Moreover, LOFAR so far yields the most precise radio measurements of the shower maximum position, which was exploited to estimate the mass composition of cosmic rays in the energy range around $10^{17}$ eV~\cite{buitinkLargeLightmassComponent2016}.\\
+
+\noindent Finally, Tunka-Rex (Tunka Radio Extension)~\cite{lenokProbabilisticModelEfficiency2023} was the radio extension of the Tunka-133, and Tunka-Grande particle detector arrays, all located in Siberia. The main goals for Tunka-Rex have been a cross-calibration of radio and air-Cherenkov measurements and the demonstration that radio antenna stations does not hamper the performance as cosmic-ray detector, making radio an economic upgrade to existing CR experiments. \\
+
+\noindent By combining the radio technique with particle detectors, these experiments acquired higher accuracy on air-shower measurements, which allows for better separation of the cosmic rays' primary particles. \\
+
+\noindent Radio experiments targeting primarily ultra-high energy neutrinos include ARA (Askaryan Radio Array)~\cite{allisonLowthresholdUltrahighenergyNeutrino2022}, ANITA (Antarctic Impulsive Transient Antenna)~\cite{deaconuSearchUltrahighenergyNeutrinos2021} and ARIANNA (Antarctic Ross Ice-Shelf Antenna Neutrino Array)~\cite{ariannacollaborationARIANNAMeasurementCosmic2019}. Their research is based on the Askaryan effect generated by neutrino interactions in ice and were important path-finders for the next-generation in-ice array, RNO-G (Radio Neutrino Observatory in Greenland)~\cite{rno-gcollaborationMultimessengerPotentialRadio2023}. ARA, like RNO-G was an in-ice array at the South Pole; ANITA was balloon-borne payload over Antarctica, and ARIANNA a surface array on the Ross Ice Shelf. \\
+
+\noindent Even when optimizing for cosmic-ray detection, neutrino searches can be continued in parallel, or vice versa. Neutrinos can be distinguished from cosmic rays by the arrival direction and polarization characteristics, since they interact differently. Experiments that implement this dual targeting are TREND (Tianshan Radio Experiment for Neutrino Detection) and GRAND (Giant Radio Array for neutrino detection), both will be located in a radio-quiet Chinese valley. TREND successfully demonstrated that self-triggering on cosmic-ray air showers is possible~\cite{ardouinFirstDetectionExtensive2011} and revealed itself as a pathfinder for GRAND~\cite{decoeneRadiodetectionNeutrinoinducedAir2021}. The latter will be the largest cosmic-ray detector on Earth, covering an area of 200.000 km$^{2}$. Its main scientific goal will be the detection of neutrinos interacting with the surrounding mountains and initiating air showers, which generate radio pulses. One of the key technological questions for this experiment is how to achieve efficient self-triggering and robust discrimination against background pulses over such vast areas. As proof-of-principle, smaller prototype arrays (like GRAND300~\cite{maProgressGRANDProto300Project2025}) are currently in operation. \\
+
+\noindent The BEACON (Beamforming Elevated Array for COsmic Neutrinos)~\cite{southallDesignInitialPerformance2023} concept is a mountaintop radio array designed specifically to detect tau neutrinos via the \textit{earth-skimming} technique. In this approach, an ultra-high energy tau neutrino interacts within the Earth, producing a tau lepton that escapes into the atmosphere and decays, creating an upgoing air shower. The resulting impulsive radio signal is detected by a phased antenna array situated on a high-elevation mountaintop, providing a large viewing area. BEACON's key innovation is a directional, interferometric trigger that forms beams on the sky to enhance the signal-to-noise ratio for air showers and dynamically rejects anthropogenic radio frequency interference (RFI) from specific directions. An 8-channel prototype has been operating since 2018 at the White Mountain Research Station in California, successfully validating the phased array trigger, characterizing the local RFI environment, and identifying a likely cosmic ray candidate. A full-scale implementation would consist of a global network of such low-cost, autonomous stations. \\
+
+\noindent Finally, TAROGE (Taiwan Astroparticle Radiowave Observatory for Geo-synchrotron Emissions) is a new experiment consisting of two sites in Taiwan~\cite{namTaiwanAstroparticleRadiowave2016}. It aims at the detection of near-horizontal showers, the receiver is again placed on top of a mountain. Depending on the observation angle, the radio signal can be measured directly or after reflection on the ocean. In principle, also neutrino-initiated showers should be detectable provided sufficient discrimination against background pulses, (e.g., caused by ships). The clear advantage of TAROGE is its large area covered with only few antennas. A potential disadvantage is the missing knowledge on how exactly the radio signal is affected by the reflection on the ocean, since water waves could have structures of similar size as the radio wavelengths, which may cause interference effects limiting the measurement accuracy. \\
+
+\noindent The future to study the highest-energy CRs and neutrinos, involves maximizing the exposure, however, this pursuit introduces formidable technical challenges. Together with GRAND, the proposed SWORD (Synoptic Wideband Orbiting Radio Detector) project~\cite{braySensitivityLunarParticledetection2017} and the EVA (ExaVolt Antenna)~\cite{gorhamExaVoltAntennaLargeaperture2011} balloon concept are examples of this prospect. SWORD will be a satellite mission observing cosmic ray and neutrino-induced showers from space. This setup might complicate the reconstruction of both energy and arrival direction, since the radio signal from the air showers will be distorted by the ionosphere.
+
+\section{Phenomenological motivation}
+
+\noindent On our planet, the radio spectrum is heavily populated by anthropogenic radio frequency interference (RFI) from sources like radio stations, satellites, and industrial equipment. In astroparticle physics, this is considered a form of background noise which is often manageable to filter, as its man-made origin means it is often continuous and its characteristics are well-known and modeled. \\
+
+\noindent Effects such as atmospheric refraction and reflection from electrically-conductive or dense dielectric boundaries can alter the radio waves' path due to their large wavelengths (from 1 cm to several meters). In the case of events originated near the horizon, these effects are magnified. This results in a smearing effect that unfocuses the arrival direction, making the modeling more complex.\\
+
+\noindent Figure~\ref{fig:AERA_plot} shows the reconstruction analysis results from AERA measurements, showing the atmosphere's effects on radio detection. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/research_plots/AERA_plot.png}
+	\caption{Distribution of the reconstructed directions from the full AERA data set in local polar coordinates. Around the horizon, several events concentrate at specific azimuths, to indicate the presence of a radio source. The smearing around these events is evident and brings the possible localization to higher elevation angles. Figure taken from~\cite{fliesherAntennaDevicesMeasurement2011}.}
+	\label{fig:AERA_plot}
+\end{figure}
+
+\noindent Prior work~\cite{kanitzRadioReflectionsAtmosphere2020} investigated whether atmospheric deflection or cloud reflection could explain radio noise at the OVRO-LWA. The geometry for cloud reflection from a nearby city was found to be favorable. The question relative to the amount of surviving power after the reflection was left open. Therefore, the possibility of observing radio reflections by clouds was just a theory, until the publication of the preliminary data at GRANDproto300 illustrated in Figure~\ref{fig:GRAND_plot}.\\
+
+\begin{figure}
+	\centering	\includegraphics[width=0.7\textwidth]{images/research_plots/GRAND_project.pdf}
+	\caption{This GRANDproto300 angular reconstruction performance analysis shows clustered events from flights and transformer stations. A coincidence analysis shows that several events are strongly related to the amount of clouds. Figure taken from~\cite{maProgressGRANDProto300Project2025}.}
+	\label{fig:GRAND_plot}
+\end{figure}
+
+\noindent At the GRAND prototype stations, were run several calibrations and preliminary surveys, during one of which, a strong coincidence was noticed between near-horizon RFI events and the amount of clouds. \\
+
+\noindent In absence of a clear signature that an event is detected subsequently a cloud reflection, a simulation-based approach can be adopted in order to finally answer the question: do clouds cause background reflections in near-horizon neutrino experiments? \\
+
+\noindent The analysis presented in this thesis quantifies the potential background for various configurations, confirming the hypothesis.
+
+\section{Partial conclusions}
+
+\noindent This chapter reveals that the generation rates of ultra-high-energy cosmic rays, cosmic neutrinos, and the extragalactic gamma-ray background are comparable across ten orders of magnitude. This similarity suggests common physical processes among these messengers, despite their unresolved origins. Investigating these processes allows us to probe extreme-energies particle interactions, map the universe's non-thermal (dark) energy budget, test fundamental physics across cosmological scales, and constrain models of dark matter. \\
+
+\noindent The radio technique offers significant advantages to astroparticle detection and characterization. First, it serves as a cost-effective component to hybrid observatories, substantially improving the accuracy of particle showers measurements. Second, radio arrays can achieve exposure sufficient to reach the flux limits of ultra-high-energy neutrinos. \\
+
+\noindent However, the radio spectrum is heavily populated by anthropogenic radio-frequency interference (RFI) from radio stations, satellites, and industrial equipment, which hinders self-triggering. Furthermore, radio signals are susceptible to natural propagation effects, including atmospheric refraction, ionospheric distortion and surface reflections, which could introduce significant uncertainties. The validation of this assumption forms the topic of the present thesis. \\
+
+\noindent The next chapter illustrates how the atmosphere affects radio wave propagation. This is critical for radio observatories that aim to trigger on, and reconstruct, radio signals traversing large atmospheric paths; whether from the horizon to ground-based telescopes or from below the ionosphere towards space-based instruments. Due to atmospheric irregularities, a possibility that RFI signals can mimic astroparticle pulses must be considered when operating at such large apertures.

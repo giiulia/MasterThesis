@@ -1,0 +1,163 @@
+\documentclass[11pt, article, twoside,openright]{book}
+% For math  
+\usepackage{amsmath}
+% For images
+\usepackage{graphicx}  
+\usepackage{caption}  
+\usepackage{subcaption}
+% Encoding of the text  
+\usepackage[T1]{fontenc}
+\usepackage{verbatim}
+% No numbering of Chapter pages
+\usepackage{titlesec}
+\assignpagestyle{\chapter}{empty}
+% For \definecolor
+\usepackage{xcolor}        
+% For \hypersetup
+\usepackage{hyperref}      
+% To have numbers on subsubsections
+\setcounter{secnumdepth}{3}
+
+\usepackage{appendix}
+\usepackage[backend=biber,  
+style=phys,  
+sorting=none,  
+giveninits=true,  
+maxnames=2,  
+minnames=1]{biblatex}
+\addbibresource{thesis_references.bib}
+
+% Dimensione dei margini  
+\usepackage[a4paper,top=3cm,bottom=3cm,left=3cm,right=3cm]{geometry}
+
+% Modifica dello stile dei riferimenti
+\definecolor{CornflowerBrown}{RGB}{77,38,25}  
+\definecolor{CornflowerPurple}{RGB}{160, 20, 100}  
+\hypersetup{  
+	colorlinks=true,  
+	linkcolor=CornflowerBrown,  
+	citecolor=CornflowerPurple,  
+	urlcolor=CornflowerPurple  
+}
+
+% Set up Unicode superscript characters  
+\usepackage{newunicodechar}
+
+\newunicodechar{¹}{${}^1$}  
+\newunicodechar{²}{${}^2$}  
+\newunicodechar{³}{${}^3$}  
+\newunicodechar{⁴}{${}^4$}  
+\newunicodechar{⁵}{${}^5$}  
+\newunicodechar{⁶}{${}^6$}  
+\newunicodechar{⁷}{${}^7$}  
+\newunicodechar{⁸}{${}^8$}  
+\newunicodechar{⁹}{${}^9$}  
+\newunicodechar{⁰}{${}^0$}  
+\newunicodechar{·}{${}\cdot{}$}
+
+\DeclareFieldFormat[unpublished]{title}{"#1"}  
+\DeclareFieldFormat[online]{title}{"#1"}  
+\DeclareFieldFormat[book]{title}{"#1"}
+\DeclareFieldFormat[misc]{title}{"#1"}  
+\DeclareFieldFormat[thesis]{url}{\url{#1}}  
+
+\DeclareBibliographyDriver{book}{%  
+	\usebibmacro{bibindex}%  
+	\usebibmacro{begentry}%  
+	\usebibmacro{author/editor+others/translator+others}%  
+	\setunit{\labelnamepunct}\newblock  
+	\usebibmacro{maintitle+title}%  
+	\newunit  
+	\printlist{language}%  
+	\newunit\newblock  
+	\usebibmacro{byauthor}%  
+	\newunit\newblock  
+	\usebibmacro{byeditor+others}%  
+	\newunit\newblock  
+	\printfield{edition}%  
+	\newunit  
+	\iffieldundef{maintitle}  
+	{\printfield{volume}%  
+		\printfield{part}}  
+	{}%  
+	\newunit  
+	\printfield{volumes}%  
+	\newunit\newblock  
+	\printfield{note}%  
+	\newunit\newblock  
+	\usebibmacro{publisher+location+date}%  
+	\newunit\newblock  
+	\printfield{url}% % <-- This will print your custom href
+	\newunit\newblock  
+	\usebibmacro{chapter+pages}%  
+	\newunit  
+	\printfield{pagetotal}%  
+	\newunit\newblock  
+	%\usebibmacro{doi+eprint+url}% % <-- Comment this out to avoid duplication
+	\newunit\newblock  
+	\usebibmacro{addendum+pubstate}%  
+	\setunit{\bibpagerefpunct}\newblock  
+	\usebibmacro{pageref}%  
+	\newunit\newblock  
+	\usebibmacro{related}%  
+	\usebibmacro{finentry}%  
+}
+
+\DeclareBibliographyDriver{thesis}{%  
+	\usebibmacro{bibindex}%  
+	\usebibmacro{begentry}%  
+	\usebibmacro{author}%  
+	\setunit{\labelnamepunct}\newblock  
+	\usebibmacro{title}%  
+	\newunit\newblock  
+	\usebibmacro{byauthor}%  
+	\newunit\newblock  
+	\textit{\printfield{type}}% % Emphasize the thesis type  
+	\newunit  
+	\usebibmacro{institution+location+date}%  
+	\newunit\newblock  
+	\printfield{note}%  
+	\newunit\newblock  
+	\printfield{url}%  
+	\newunit\newblock  
+	\usebibmacro{doi+eprint+url}%  
+	\newunit\newblock  
+	\usebibmacro{addendum+pubstate}%  
+	\setunit{\bibpagerefpunct}\newblock  
+	\usebibmacro{pageref}%  
+	\newunit\newblock  
+	\usebibmacro{related}%  
+	\usebibmacro{finentry}%  
+}
+
+
+\begin{document}
+	
+	\include{chapters/Front}
+	\thispagestyle{empty}
+	\eject
+	\tableofcontents
+	\clearpage
+	\thispagestyle{empty}
+	\markboth{}{} % Clear running headers
+    \include{Abstract}
+    \markboth{}{} % Clear running headers
+	\include{chapters/Astroparticleradiodetection}
+	\markboth{}{} % Clear running headers
+	\include{chapters/Radiopropagationintheatmosphere}
+	\markboth{}{} % Clear running headers
+	\include{chapters/Scatteringandabsorptionfromrainandclouds}
+	\markboth{}{} % Clear running headers
+	\include{chapters/Implementationofanhydrometeorscatteringmodel}
+	\markboth{}{} % Clear running headers
+	\include{chapters/Results}
+	\markboth{}{} % Clear running headers
+	\include{chapters/Conclusions}
+	%\appendixtitleon
+	%\appendixtitletocon
+
+	\include{chapters/Appendix}
+	\markboth{}{} % Clear running headers
+ 	\printbibliography[title=Bibliography]
+	
+\end{document}

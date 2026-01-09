@@ -1,0 +1,680 @@
+\chapter{Implementation of hydrometeor scattering}
+\label{chap:implemetation}
+
+\noindent The modeling of hydrometeor scattering in this thesis is based on the radar formalism introduced in Section~\ref{sec:radar}. For this purpose, we have adapted a preexisting computational code, the fundamental principles of which are detailed, together with the original use case, in Section~\ref{sec:MARES}. The excessive number of hydrometeors inside an atmospheric perturbation is computationally prohibitive. Section~\ref{sec:modeling_hydrometeor_scattering} presents the core, novel methodology to address this limitation. Finally, the specific adaptations made to the software are detailed in Section~\ref{sec:final_adaptation}.
+
+\section{The radar approach to hydrometeor scattering}
+\label{sec:radar}
+
+\noindent The word RADAR stands for RAdio Detection And Ranging, it is up to this point used as a noun to describe locating systems that rely on electromagnetic waves to measure the distance, speed and composition of a target. A radar system is composed by an emitter of radio waves, or transmitter antenna, and a receiver antenna, which can coincide with the first one. \\
+
+\noindent When the transmitter antenna illuminates a volume of hydrometeors, the oscillating field of the radio wave exerts a force on the bound electrons of the water molecules. This force causes the molecules to polarize temporarily. The polarization of the droplet oscillates at the same frequency of the incident electric field, becoming an oscillating dipole radiating electromagnetic energy back to the receiver. \\
+
+\noindent In practice, the key parameter is the complex dielectric constant, or permittivity, of the hydrometeor's material. This was characterized in the previous chapter for both water and ice in Section~\ref{sec:refractive_index}. It is customary to model the response of an hydrometeor volume using the Radar Cross Section (RCS) theory for dielectric spheres, as explained in Section~\ref{sec:modeling_hydrometeor_scattering} using the derivation for the scattering matrix found in Section~\ref{sec:rain_and_clouds}. \\
+
+\noindent The radar cross section $\sigma_{\text{RCS}}$ is the equivalent capture area that would be needed to make the power scattered by the target equivalent to an isotropic radiator. This official definition comes from assuming a distant transmitter illuminating the target with a certain irradiance $I_{\text{incident}}$ (power per unit of area). The target captures an energy equal to $\sigma_{\text{RCS}} I_{\text{incident}}$ and re-radiates isotropically:
+
+\begin{equation}
+	I_{\text{scattered, isotropic}} = \frac{\sigma_{\text{RCS}}I_{\text{incident}}}{4\pi r^{2}}.
+\end{equation}
+
+\noindent Therefore, the official definition of the radar cross section is~\cite{IEEEStd150220202020}:
+
+\begin{equation}
+	\label{eq:definition_rcs}
+	\sigma_{\text{RCS}} = \lim_{r \to \infty } 4\pi r^{2} \frac{I_{\text{scattered, isotropic}}}{I_{\text{incident}}}.
+\end{equation}
+
+\subsection{Radar classification and regimes}
+
+\noindent In Figure~\ref{fig:radar_configuration} is illustrated the geometric representation of a radar problem. According to the set-up, one can classify the radar systems into three categories.\\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{images/geometry_drawing.png}
+	\caption{The radar scatter can be described in the plane defined by transmitter (T), receiver (R) and target (tg). In this plane are placed the vector distances $\vec{R}_{\text{T}}$ and $\vec{R}_{\text{R}}$ and the scattering angle $\theta$ between them.}
+	\label{fig:radar_configuration}
+\end{figure}
+
+\noindent \textit{Monostatic radar} refers to the configuration where transmitter and receiver coincide and $\theta = \pi$.\\
+
+\noindent \textit{Bistatic radar} refers to the case where transmitter and receiver are different antennas and separated by a distance $B$, the baseline.\\
+
+\noindent Since the scattered signal can change significantly with $\theta$, the bistatic radar configuration can be further classified by the bistatic scattering angle.
+
+\begin{itemize}
+	\item [-] \textbf{Pseudo-monostatic region} ($\theta \simeq \pi$): Also called the \textit{backscatter} region, in this case the radar echo is transmitted backwards. This region can also be achieved when $\left|\vec{R}_{\text{T}}\right|$, $\left|\vec{R}_{\text{R}}\right| \gg B$.
+	\item [-] \textbf{Forward-scatter region} ($\theta \simeq 0$): The scatter happens in a relatively straight line. This region roughly corresponds with the first Fresnel zone in radio communication, which is the region around the baseline in which a signal deflection gives a strong radar scatter due to in-phase interference.
+	\item [-] \textbf{Bistatic region}: The remainder of the space in the radar scattering plane is described by an higher number of variables then the first two regions: $\left|\vec{R}_{\text{T}}\right|$, $\left|\vec{R}_{\text{R}}\right|$ and $\theta$. All of these will enter in the bistatic scatter equation, here used to describe a generic scattering off an hydrometeor volume in the general area of an astroparticle telescope.
+\end{itemize}  
+
+\noindent \textit{Multistatic radar} refers to multiple spatially separated monostatic or bistatic radar systems with a shared area of coverage. For the principle of linearity of electric fields, the final signal at the receivers can be calculated as the sum of all the signals from different transmitters.\\
+
+\noindent To model the radar scatter, a different approach is used according to the size of the target $D$ relatively to the wavelength of the incident electromagnetic wave.
+
+\begin{itemize}
+	\item [(a)] \textbf{The optics regime} ($D \gg \lambda$): In this regime the scattering is treated using geometric optics rules. This means that the only contribution given to the RCS is from the rays that can reflect back to the observer.
+	\item [(b)] \textbf{The resonance regime} ($D \simeq \lambda$): This is the most difficult regime to describe because of two interfering wave components. One is the direct reflection, subject to a phase jump of 180$^{\circ}$ and the other is a creeping wave generated by a continuous diffraction at the surface, both of them are depicted in Figure~\ref{fig:creeping_wave}.
+	\item [(c)] \textbf{The Rayleigh regime} ($D \ll \lambda$): When the target is encompassed is a single wavelength, there is little variation between the phases of the scattered fields from its parts. In this condition the scattering is called coherent.
+\end{itemize} 
+
+\noindent Figure~\ref{fig:regimes} summarizes the three regimes for a metallic sphere with radius $r = D/2$. \\
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/RayMieOpt.print.jpg}
+		\caption{Backscattering RCS as a function of $r/\lambda$. In green, is highlighted the Rayleigh regime, in red, the resonance, or Mie regime, and in blue the optics regime.}
+		\label{fig:regimes}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/creeping_wave.print.jpg}
+		\caption{Direct reflection and creeping wave effect for a spherical object.}
+		\label{fig:creeping_wave}
+	\end{subfigure}
+	\caption{The scattering behavior of a plane wave with wavelength $\lambda$ from a metallic sphere with radius $r = D/2$. Figures adapted from~\cite{wolffRayleighMieScattering}.}
+\end{figure}
+
+\noindent The comprehensive theory for all of these mechanisms is called \textit{Mie scattering} theory, even if Mie scattering is often mentioned as the resonance type, that ties together the extreme regions. \\
+
+\noindent For most rainfall and for small snowflakes, the diameter of the hydrometeor ($D$) is much smaller than the wavelength of the radar ($\lambda$). This allows to use a simplified model (the Rayleigh approximation) in this thesis. However, for larger particles like big raindrops, hail, or graupel, this simple model breaks down. In these cases, more complex numerical methods (Mie theory) are needed, and the particle's shape becomes very important.
+
+\subsection{Radar equations}
+
+\noindent The mathematical description of the bistatic radar scatter is based on how an electromagnetic wave propagates between two antennas separated by a distance $R$. This is also referred to as the Friis process. \\
+
+\noindent The transmitter will emit an amount of power $P_{\text{T}}$ with a directional gain pattern $G_{\text{T}}(\theta_{\text{T}}, \phi_{\text{T}})$ where $\theta_{\text{T}}$ and $\phi_{\text{T}}$ are the spherical coordinates in the transmitter frame.\\
+
+\noindent In the direction of the receiver, at a sufficiently large distance $R > \lambda$ (in the \textit{far-field} region the plane wave approximation can be applied\footnote{The plane wave approximation also requires that there are no other effects such as ray bending, so it is much less likely to be applicable in the case of a medium with non-constant index of refraction.}), the irradiance will be:
+
+\begin{equation}
+	I_{\text{T-R}}(R, \theta_{\text{T}}, \phi_{\text{T}}) = \frac{P_{\text{T}} G_{\text{T}}(\theta_{\text{T}}, \phi_{\text{T}})}{4 \pi R^{2}} \eta_{\text{att}}(R),
+\end{equation}
+
+\noindent where $\eta_{\text{att}}(R)$ is the attenuation efficiency of the medium over $R$. The irradiance $I_{\text{T-R}}$ is a measure of the power density incident at the receiver. Considering the effective area of the receiver $A_{\text{R}}$, it will record a power $P_{\text{R}}$. The measured power will capture the loss due to the misalignment of the antennas' polarizations ($\eta_{\text{PLF}}$), and eventually take the form:
+
+\begin{equation}
+\begin{split}
+	P_{\text{R}} &= I_{\text{T-R}} A_{\text{R}} \eta_{\text{PLF}} = I_{\text{T-R}} A_{\text{eff, iso}} G_{\text{R}}(\theta_{\text{R}}, \phi_{\text{R}}) \eta_{\text{PLF}} =\\
+	 &= I_{\text{T-R}} \frac{\lambda^{2}}{4\pi} G_{\text{R}}(\theta_{\text{R}}, \phi_{\text{R}}) \eta_{\text{PLF}} = \left( \frac{\lambda}{4 \pi R} \right)^{2} P_{\text{T}} G_{\text{T}} G_{\text{R}} \eta_{\text{att}}(R) \eta_{\text{PLF}}.
+\end{split}
+\end{equation}
+
+\noindent Here we analytically derived the effective aperture of the ideal, isotropic antenna from pure thermodynamic considerations following Reference~\cite{rohlfsToolsRadioAstronomy2004}. For a better description of antenna properties (gain, irradiance polarization) read the main reference for this work~\cite{huescasantiagoUnderstandingRadarEchoes2024}.\\
+
+\noindent The radar scatter process is defined as the re-radiation of radio waves by the target. This can be described by modeling the target as a third antenna, involved in two Friis processes:
+
+\begin{equation}
+	 \begin{matrix}
+		P_{\text{tg}} = \frac{P_{\text{T}}G_{\text{T}}A_{\text{e,tg}}}{4 \pi R^{2}_{\text{T}}}\eta_{\text{att,T}} \eta_{\text{PLF,T}},\\
+		P_{\text{R}} = \frac{P_{\text{tg}}G_{\text{tg}}A_{\text{e,R}}}{4 \pi R^{2}_{\text{R}}}\eta_{\text{att,R}} \eta_{\text{PLF,R}}.
+	\end{matrix}
+\end{equation} 
+
+\noindent Combining the two equations, we have
+
+\begin{equation}
+		P_{\text{R}} = \frac{P_{\text{T}}G_{\text{T}}A_{\text{e,tg}}G_{\text{tg}}A_{\text{e,R}}}{\left(4 \pi R_{\text{T}}R_{\text{R}}\right)^{2}}\eta_{\text{att,T}} \eta_{\text{PLF,T}}\eta_{\text{att,R}} \eta_{\text{PLF,R}}.
+\end{equation}
+
+\noindent The target contributes with the term $A_{\text{e,tg}}G_{\text{tg}}$ which then defines the radar cross section $\sigma_{\text{RCS}} = A_{\text{e,tg}}G_{\text{tg}}$. \\
+
+\noindent Finally, rewriting $A_{\text{e,R}}$, we get
+
+\begin{equation}
+	\label{eq:RadarEq}
+	P_{\text{R}} = \frac{P_{\text{T}}G_{\text{T}}G_{\text{R}}\sigma_{\text{RCS}}\lambda^{2}}{\left(4 \pi\right)^{3} \left(R_{\text{T}}R_{\text{R}}\right)^{2}}\eta_{\text{att,T}} \eta_{\text{PLF,T}} \eta_{\text{att,R}} \eta_{\text{PLF,R}}.
+\end{equation}
+
+\noindent Under the assumption of a weakly attenuating medium (air) $\eta_{\text{att,T}} = \eta_{\text{att,R}} = 1$.  
+
+\section{The MARES modeling software}
+\label{sec:MARES}
+
+\noindent The software tool chosen to model and quantify the power received from a volume of hydrometeors is a semi-analytical model named MARES (Macroscopic Approximation of the Radar Echo Scatter).\\
+
+\noindent This modeling software was originally developed to describe the radar scatter, or radar echo, of a relativistic particle cascade trail in dense media. To learn more about the history of the radar detection technique and its application to particle cascades studies, read Reference~\cite{huescasantiagoUnderstandingRadarEchoes2024}. \\
+
+\noindent MARES, like others, is a semi-analytical approach in the sense that approximates the cascade as a collection of volumes forming a line. For the small scales (Rayleigh regions) the model has an analytical solution, then computes the interference between electric fields re-radiated from the equivalent oscillators. \\
+
+\noindent To accomplish this, MARES is based on two fundamental principles: the superposition of electric fields and the internal coherence principle. \\
+
+\subsection{The principles of MARES}
+
+\noindent The first principle  is applied when calculating the total RCS of an object as the sum of its parts. This is doable, as shown already many years ago by Crispin and Maffet in Reference~\cite{crispinRadarCrosssectionEstimation1965}, as follows:
+
+\begin{equation}
+	\sigma_{\text{RCS}} = \left| \sum_{j=1}^{N} A_{j}e^{i\phi_{j}} \right|^{2},
+\end{equation}
+
+\noindent where each amplitude $A_{j}$ and phase $\phi_{j}$ are associated with a portion of the scattering body. In particular $(A_{j})^{2}$ is the RCS of the jth portion, and $\phi_{j}$ is the phase associated with that contribution respect to an arbitrary reference.\\
+
+\noindent This is connected to the principle of linearity of electric fields because the received power for every moment in time, $P_{\text{R}}(t)$, scales with the total electric field at the receiver at that time, which is the sum of all contributions, or radar cross sections, from the "sources" (that is to say, portions) in the scattering body:
+
+\begin{equation}
+	P_{\text{R}}(R, t) \propto \left| \vec{E}_{\text{R}} (R, t) \right|^{2} = \left| \sum_{j=1}^{N} \vec{E}_{\text{R,j}} (R_{j}, t) e^{i\phi_{j}}(t) \right|^{2}.
+\end{equation}
+
+\noindent The "sources" in the target are, in this work, hydrometeors. In fact, these objects, if small enough, can be assumed spherical and homogeneous, therefore their RCS is found analytically. Unfortunately, keeping track of the contributions from all the hydrometeors in a large perturbation volume becomes quickly computationally intractable.\\
+
+\noindent This Chapter, presents two methods to solve this issue, the  first method is applicable to small, dense clusters of targets, such as particle cascades. The second method is adopted in this work, relatively to extended targets with a moderate density of components. \\
+
+\noindent The second principle is most of use for the first scenario, but still worth mentioning for its fundamental nature, therefore useful for testing the sanity of the code. In particular, the coherence principle states that, if a Rayleigh region of sources is considered, the scattered field from all of them can be approximated to the same amplitude and phase values. A Rayleigh region, as mentioned above, is a portion of space smaller than one wavelength. Granted this condition, the scattering from a single Rayleigh region is coherent, and can be simplified for the sake of speeding up calculations. \\
+
+\noindent The power received from a collection of $M$ sources confined in a Rayleigh region is
+
+\begin{equation}
+	P_{\text{R,M}} \propto \left| \vec{E}_{\text{R,M}} (R, t) \right|^{2} = M^{2} \left| E_{\text{R}} (R, t) e^{i\phi(t)}\right|^{2} \left| \hat{E}_{\text{R}} (R, t) \right|^{2} \propto M^{2}P_{\text{R,$j\in M$}}.
+\end{equation}
+
+\noindent Under the coherence condition, the final electric field scales with the number of sources $M$, and therefore the total power scales with $M^{2}$.
+
+\subsection{The original use case of MARES}
+
+\noindent The original code allows to define a cascade based on its vertex's position, number of primaries, initial energy and direction. \\
+
+\noindent In principle it is possible to define multiple transmitters and receivers and cycle through them. A single event is identified with a set of one transmitter, one receiver and one cascade. \\
+
+\noindent At first, the 3D direction vectors are set from the transmitter to the vertex of the cascade, and from the latter to the receiver. Secondly, the polarization angle $\epsilon$ allows to change the polarization of the transmitted wave. The polarization vector indicates the direction of the electric field in the antenna's polarization plane. \\
+
+\noindent The polarization vector at the transmitter, considering $\theta_{\text{T}}$ as defined in Figure \ref{fig:radar_configuration}, is: 
+
+\begin{equation}
+	\begin{aligned}
+		E_{x} &= \sin(\epsilon)\\
+		E_{y} &= \cos(\theta_{\text{T}})\cos(\epsilon)\\
+		E_{z} &= \sin(\theta_{\text{T}})(-\cos(\epsilon))
+	\end{aligned}
+\end{equation}
+
+\noindent The polarization vector at the receiver, considering $\theta_{\text{R}}$ as defined in Figure \ref{fig:radar_configuration}, is: 
+
+\begin{equation}
+	\begin{aligned}
+		E_{x} &= \sin(\epsilon)\\
+		E_{y} &= \cos(\pi - \theta_{\text{R}})\cos(\epsilon)\\
+		E_{z} &= \sin(\pi - \theta_{\text{R}})(-\cos(\epsilon))
+	\end{aligned}
+\end{equation}
+
+\noindent According to the resolution desired, and the length $L$ ad radius $R$ of the cascade (approximated as a cylinder), the number of Rayleigh regions in the shape of shells defined in the cascade is set. For every shell long $dL$ and thick $dR$, an attenuation efficiency $\eta_{\text{att}}(R)$ is calculated based on the extinction at that specific depth. \\
+
+\noindent In this implementation, the Rayleigh regions are the individual sources that re-radiate the signal, also called scattering points. The RCS of the shell is calculated as:
+
+\begin{equation}
+	\sigma_{\text{RCS,shell}} = \eta_{\text{att}}(R) \sigma_{\text{Thomson}} N^{2}_{e} G_{H} W,
+\end{equation}
+
+\noindent where $N_{e}$ is the number of electrons in that portion. The electrons, when hit by an electromagnetic force, behave like an infinitesimal oscillator, an Hertzian dipole. $G_{H}$ the gain of the Hertzian dipole, and $W$ the collisional damping term of the oscillation. The Thompson scattering cross section ($\sigma_{\text{Thomson}}$) describes the scattering of electromagnetic radiation by free electrons:
+
+\begin{equation}
+	\sigma_{\text{Thomson}} = \frac{8\pi}{3}r^{2}_{e},
+\end{equation}
+
+\noindent where $r_{e}$ is the classical electron radius $\sim 2.8 \cdot 10^{-15}$ m.\\
+
+\noindent In a rapidly evolving object like a superluminar cascade, it must be defined the start time of every source, when it starts existing; in this case it is fixed to the electron's distance from the vertex/$c$. For every source is defined the absolute distance between it and the transmitter or receiver. This allows to calculate the arrival time as 
+
+\begin{equation}
+	t_{\text{arrival}} = t_{\text{start}} + (R_{\text{T}}+R_{\text{R}})/c_{\text{ice}}
+\end{equation}
+
+\noindent Also the phase depends on $R_{\text{T}}$ and $R_{\text{R}}$: 
+
+\begin{equation}
+	\varphi = 2\pi/\lambda \cdot (R_{\text{T}}+R_{\text{R}}) - \pi/2
+\end{equation}
+
+\noindent The input signal is a continuous wave (CW), which means that $\lambda < \Delta_{t}$, where $\Delta_{t}$ is the duration of the pulse. \\
+
+\noindent The simulation begins with defining the time stamps the receiver records. If start is the minimum arrival time between all objects and end is the maximum + $\Delta_{t}$, then the number of steps is:
+
+\begin{equation}
+	\text{steps} = (\text{end} - \text{start}) \cdot f_{\text{s}},
+\end{equation}
+
+\noindent where the sampling frequency $f_{\text{s}} = 100f$ for the Nyquist sampling theorem. According to this theorem, if the condition $f_{\text{s}}> 2f$ is not met, the sampled data is corrupt by aliasing\footnote{Aliasing refers to the effect for which high frequency tones can disguise as lower frequencies, due to an insufficient sampling. Choosing $f_{\text{s}} = 100f$ is a conservative engineering practice.}.\\
+
+\noindent For every step $t$, the contribution of every point is calculated as:
+
+\begin{equation}
+	\sigma_{\text{RCS,p}}(t) = \cos^{2}(-\varphi+2\pi f t)\sigma_{\text{RCS,shell}}.
+\end{equation}
+
+\noindent Considering the radar equation \ref{eq:RadarEq} and the relationship between power and voltage $P=V^{2}/R_{\text{Load}}$, the contribution to the voltage due to a single point is
+
+\begin{equation}
+	V_{\text{p}}(t) = \frac{\lambda}{R_{\text{T}}R_{\text{R}}} \sqrt{\frac{P_{\text{T}} G_{\text{T}}G_{\text{R}}}{(4\pi)^{3}} R_{\text{Load}} } \cos(-\varphi+2\pi f t)\sqrt{\sigma_{\text{RCS,shell}}}\eta_{\text{PLF}}.
+\end{equation}
+
+\noindent Finally, the $\sigma_{\text{RCS,p}}$ and $V_{\text{p}}$ are summed over all scattering points to get a list of values: one for every time stamp. For the complete discussion on the calculation of the radar echo from particle cascades in dense media, read Reference~\cite{huescasantiagoUnderstandingRadarEchoes2024}.
+
+\newpage
+
+\section{Modeling hydrometeor scattering}
+\label{sec:modeling_hydrometeor_scattering}
+
+\noindent In the following sections, we present a scalable approach to modeling large volumes of rain by decomposing the problem into smaller, computationally feasible portions. Section~\ref{sec:droplet} details the methodology for calculating the Radar Cross Section (RCS) of a single water droplet. In Section~\ref{sec:small_cloud} is explained how the MARES code can be run for multiple water droplets in a small volume of rain. Finally, Section~\ref{sec:big_cloud} shows how exploiting the results from Section~\ref{sec:small_cloud} iteratively allows modeling larger rain volumes.\\
+
+\noindent When a cloud of particles scatters a signal via an indirect path between two antennas which have intersecting beams but are not strongly coupled by a direct path, we have a bistatic scatter situation.\\
+
+\noindent From the textbook "Propagation of Radio waves"~\cite{barclayPropagationRadioWaves2003}, we learn that the power received from a volume containing rain can be calculated using the bistatic radar equation, of which an approximate form is:
+
+\begin{equation}
+	\label{eq:BistaticRain}
+	P_{\text{R}} = \frac{P_{\text{T}}G_{\text{T}}G_{\text{R}}\lambda^{4} N V |S(\theta, \phi)|^{2}}{64 \pi^4 R^{2}_{\text{T}}R^{2}_{\text{R}}}\eta_{\text{att}} \eta_{\text{PLF}}
+\end{equation}
+
+\noindent Here $P_{\text{T}}$ indicates the power transmitted towards a cloud of particles, $P_{\text{R}}$ the power received, $R_{\text{T}}$, $R_{\text{R}}$ are distances from the antennas to the effective cloud volume and $G$ denotes the antennas' gain. The beam intersects a volume $V$ of the cloud, which contains particles at a density of $N$ per unit volume. Each particle has an amplitude scattering function $S$. As shown in previous chapters, $S$ depends on $\theta$, the scattering angle and $\phi$, the angle between the electric field and the scattering plane, they are both illustrated in Figure~\ref{fig:geometry}. Because of the dependence on $\phi$, in using this equation, careful account must be taken of the two antenna polarizations. $\eta_{\text{att}}$ is the attenuation efficiency, expressed as $\eta_{\text{att}} = e^{-(R_{\text{T}}+R_{\text{R}})/L_{\text{att}}}$ where $L_{\text{att}}$ is the characteristic length of bulk attenuation for radio waves in air, large enough for  $\eta_{\text{att}}$ to be neglected. The polarization loss factor $\eta_{\text{PLF}}$ quantifies the mismatch between the scattered signal and the receiver antenna. A more in-depth mathematical treatment about attenuation of electromagnetic waves can be found in Appendix~\ref{app:AppendixC}.\\
+
+\noindent The response of the target to the radar echo scatter is captured in the RCS, here obtained by equating Equation~\ref{eq:BistaticRain} to the radar equation (Equation~\ref{eq:RadarEq}).
+
+\begin{equation}
+	\label{eq:RCS_volume}
+	\sigma_{RCS} = \frac{NV\lambda^{2}}{\pi}|S(\theta, \phi)|^{2}
+\end{equation}
+
+\noindent There is no single function $S(\theta, \phi)$ for the entire volume, as it depends on the specific properties, positions, and orientations of all constituent droplets. Theoretically, the total amplitude function could be found by summing the individual scattering functions $S_{i}(\theta, \phi)$ of each particle, but this requires translating them to a common origin. This translation introduces large phase shifts that are highly sensitive to the random positions of the particles. Since these positions fluctuate rapidly, even during a fast radar measurement, the phase relationships are essentially random. This is expressed by the formula:
+
+\begin{equation}
+	S(\theta, \phi) \neq \sum_{i} S_{i}(\theta, \phi),
+\end{equation}
+
+\noindent MARES enables the precise simulation of a rain volume by modeling the individual scattering response of each hydrometeor within a small volume. The total RCS is then computed for various $(\theta, \phi)$ configurations based on this aggregate simulation. \\
+
+\noindent Figure~\ref{fig:geometry} shows the simulated system's geometry. The transmitter and receiver are both positioned on the ground ($z=0$), illuminating the scattering object, which can be either a particle or a collection of them. If the object is at a height $z\neq 0$, it forms a vertical scattering plane with the antennas. To study different scattering angles $\theta$, we simulate the receiver moving away from the transmitter, causing $\theta$ to decrease from $\pi$ (backscattering) towards $0$ (forward scattering). The $\theta = 0$ case is omitted, as the immense antenna separation would make the received power negligible. The angle $\phi$ is varied by changing the polarization of the transmitted wave. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/geometry_mydrawing.png}
+	\caption{The radar scattering geometry. In purple, is depicted the scattering plane; in green, the polarization plane, where the electric field vector (thick, blue arrow) lies. The scattering angle $\theta$ is measured from the scattered to the incident direction, $\theta \in (0, \pi]$. The polarization scattering angle $\phi$ is measured counterclockwise from the point of view of the transmitter, and clockwise if viewed from above as here illustrated. Only values of $\phi \in [0, \pi]$ are considered since the irradiance $I(\phi)$ has a period of $\pi$.}
+	\label{fig:geometry}
+\end{figure}
+
+\subsection{Single raindrop}
+\label{sec:droplet}
+
+\noindent Each raindrop can be represented as a sphere with approximately zero velocity ($v \ll 1/T$ where $T$ is the period of radio reflection), considering that for drops with $D$ > 10 mm the terminal velocity is around 15 m/s~\cite{mezhericherStochasticTheorySize2023}. In fact, for a radar wavelength of 10 cm (3 GHz), the drop moves only about 5 nanometers in one wave period. \\
+
+\noindent From Equation~\ref{eq:E_s_functionofX}, the definition of $\vec{X}$ (Equation~\ref{eq:X}) and the solution for $S_{1}$ and $S_{2}$ (Equation~\ref{eq:S1andS2}), for an arbitrarily polarized plane wave, the scattered field from a dipole (the water droplet) is:
+
+\begin{equation}
+	\label{eq:Escattered}
+	\vec{E}_{s} = \frac{e^{-ikr}}{ikr} \left( \frac{ik^{3}\alpha}{4\pi\epsilon_{0}} \cos(\theta) \cos(\phi) \hat{e}_{s\parallel} + \frac{ik^{3}\alpha}{4\pi\epsilon_{0}} \sin(\phi)\hat{e}_{s\perp} \right).
+\end{equation} 
+
+\noindent We start by computing the RCS of a water droplet. The official definition of $\sigma_{\text{RCS}}$ is  Equation~\ref{eq:definition_rcs}; in the case of targets with dimension $a \ll r$, it can be written as:
+
+\begin{equation}
+	\label{eq:rcs}
+	\sigma_{\text{RCS}} = 4\pi r^{2} \frac{I_{\text{scattered, isotropic}}}{I_{\text{incident}}},
+\end{equation}
+
+\noindent where the irradiance $I$ is the power per unit of area received by a surface, from a source of electromagnetic field. It is proportional to the square of field's amplitude:
+
+\begin{equation}
+	I = \frac{c \epsilon_{0}}{2} |E_{0}|^{2}.
+\end{equation} 
+
+\noindent Therefore, using Equation \ref{eq:Escattered}:
+
+\begin{equation}
+	\sigma_{\text{RCS}} = 4\pi r^{2} \left|\frac{E_{s, 0}}{E_{i, 0}} \right|^{2}
+	= 4\pi r^{2} \frac{k^{4}\alpha^{2}}{(4\pi\epsilon_{0}r)^{2}} \left( \cos^{2}(\theta)\cos^{2}(\phi) + \sin^{2}(\phi) \right)
+\end{equation}
+
+\noindent We conclude that the $\sigma_{\text{RCS}}$ of a sphere, like the irradiance, also depends on the polarization angle. It's useful to define a directivity factor 
+
+\begin{equation}
+	\label{eq:directivity_factor}
+	D(\theta, \phi) = \cos^{2}(\theta)\cos^{2}(\phi) + sin^{2}(\phi)
+\end{equation}
+
+\noindent and write:
+
+\begin{equation}
+	\sigma_{\text{RCS}} = A_{e, iso} D(\theta, \phi),
+\end{equation}
+
+\noindent where $A_{e}$ is the isotropic effective area equal to:
+
+\begin{equation}
+	\label{eq:effective_area}
+	A_{e, iso} = \frac{64\pi^{5}}{\lambda^{4}} a^{6} \left| \frac{n^{2} - 1}{n^{2} + 2}\right|^{2}.
+\end{equation}
+
+\noindent $a$ as the radius of the droplet, while $n$ is the refractive index of water. Remember that $n$ depends on the wavelength $\lambda$ and the temperature as discussed in Section \ref{sec:refractive_index}. \\ 
+
+\noindent This result is in agreement with the formulas in Section 5.1 of Reference~\cite{bohrenAbsorptionScatteringLight1998}, which concerns spheres small compared to the wavelength. Regarding the angular dependence, Figure \ref{fig:angular_distribution} represents what literature calls the normalized angular distribution (here, the directivity) of the light scattered by a sphere. Simulation results are shown in Section \ref{sec:single_raindrop_results}.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/polarized_light_1.png}
+		\caption{Normalized amplitude.}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.43\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/polarized_light_2.png}
+		\caption{Polar plot.}
+	\end{subfigure}
+	\caption{Normalized angular distribution of the light scattered by a sphere small compared to the wavelength. Are here represented the incident light polarized parallel ($---$) and perpendicular ($-\cdot - \cdot -$) to the scattering plane; the unpolarized incident light (\raisebox{0.5ex}{\rule{1.5em}{0.4pt}}). Figure adapted from~\cite{bohrenAbsorptionScatteringLight1998}.}
+	\label{fig:angular_distribution}
+\end{figure}
+
+\begin{comment}
+\noindent The scattered electric field from the raindrop will have a direction given by
+
+\begin{equation}
+	\hat{e}_{s} = \left( \hat{e}_{r\text{R}} \times \hat{e}_{p} \right) \times \hat{e}_{r\text{R}},
+\end{equation} 
+
+\noindent where $\hat{e}_{p}$ is the direction of oscillation of the induced dipole in the droplet. \\
+
+\noindent Knowing the polarization vector of the transmitter $\hat{e}_{p\text{\text{T}}}$, $\hat{e}_{p}$ can be found similarly considering the dipole represented by the transmitter antenna: 
+
+\begin{equation}
+	\hat{e}_{p} = \left( \hat{e}_{r\text{T}} \times \hat{e}_{p\text{T}} \right) \times \hat{e}_{r\text{T}}.
+\end{equation}
+
+\noindent Finally, the polarization loss factor $\eta_{\text{PLF}}$ can be obtained by the projection of $\hat{e}_{p}$ on the polarization vector at the receiver:
+
+\begin{equation}
+	\eta_{\text{PLF}} = \left|\hat{e}_{s} \cdot \hat{e}_{p\text{R}} \right|^{2}.
+\end{equation}
+\end{comment}
+
+\subsection{Small spherical rain volume}
+\label{sec:small_cloud}
+
+\noindent Since we are interested in possible background radio signals for astroparticle research, it is recommended to focus on the presence of unstable clouds (which cause rain or snow) in the proximity of the radio observatory. This is mainly because:
+
+\begin{itemize}
+	\item [-] Thick, low-altitude clouds can have bigger impact on radio signals.
+	\item [-] Unstable clouds contain larger hydrometeors, whose scattering efficiency is governed by the sixth-power dependence on the radius $a$, as established in Equation~\ref{eq:effective_area}.
+	\item [-] Turbulence and inhomogeneous density within unstable clouds can enhance scattering.
+	\item [-] Rain and snow significantly increase radar reflectivity, which is why weather radars can detect precipitation easily.
+\end{itemize}
+
+\noindent Therefore, to evaluate the influence of rain on sensitive radio measurements towards the horizon, we choose to simulate the rain volume with, in average, large and dense raindrops. \\
+
+\noindent In a rain volume the diameter of the droplets $D$ is not constant. As discussed in Section \ref{sec:rain}, the drop size distribution (DSD) $N(D)$ is often represented as the gamma distribution (Equation \ref{eq:gamma_distribution}) and measured in m$^{-3} \cdot$mm$^{-1} $. \\
+
+\noindent For the description of the water droplets' number density ($N$) inside clouds or rain volumes, a parameter called \textit{liquid water content} ($LWC$) is extremely common. The $LWC$ shows the amount of water in g/m$^{3}$ inside a volume and can be calculated from the DSD as follows~\cite{thomasCharacterizationRaindropSize2021a}:
+
+\begin{equation}
+	LWC = \frac{\pi \rho_{w} 10^{6}}{6} \sum_{i=1}^{n} D^{3}_{i}  N(D_{i}) dD_{i},
+\end{equation}
+
+\noindent where $\rho_{w} = 10^{3}$ kg/m$^{3}$ is the density of water, $i$ individuates the raindrop size bin, $dD_{i}$ and $D_{i}$ are respectively the size of the bin $i$ and the diameter of the raindrops in that bin in mm. \\ 
+\begin{comment}
+\noindent The gamma parameters are calculated from moments of central tendency given by the $n_{\text{th}}$ moment of the distribution given by:
+
+\begin{equation}
+	\label{eq:moments}
+	M_{n} = \sum_{i=1}^{n} N(D_{i}) D^{n}_{i} dD_{i}
+\end{equation}
+\end{comment}
+
+\noindent The characterization of the raindrop size distribution (DSD) is crucial in many weather applications, including accurate rain estimation and numerical modeling of microphysical processes of rain formation.\\
+
+\noindent Previous work~\cite{thomasCharacterizationRaindropSize2021a} characterized the DSD and its response to cloud microphysical properties during the Indian Summer Monsoon season (June-October 2013–2015).\\	
+
+\noindent Figure \ref{fig:droplets_density} presents the time-averaged raindrop size distribution over the study period for stratiform (uniform, steady intensity and extensive horizontal development) and convective rain (localized, intense downpours that are often short-lived).\\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/research_plots/droplets_density.png}
+	\caption{Trend of water density per droplet diameter inside rain volumes as a function of the droplet diameter. The type of rain is usually classified into convective rain and stratiform rain based on its intensity, horizontal homogeneity and different rain growth mechanisms. Figure taken from~\cite{thomasCharacterizationRaindropSize2021a}.}
+	\label{fig:droplets_density}
+\end{figure}
+
+\noindent The raindrop size distribution for stratiform and convective rain is distinctive with the mean values of the mass-weighted mean diameter ($D_{m}$) and the normalized DSD scaling parameter ($N_{w}$). For further details read Reference~\cite{thomasCharacterizationRaindropSize2021a}. \\
+
+\noindent From the Indian Monsoon dataset, it is concluded in~\cite{thomasCharacterizationRaindropSize2021a} that, for stratiform rain $D_{m} = 1.35$ mm and $\text{log}_{10}(N_{w}) = 2.66$ m$^{-3}\cdot$mm$^{-1}$, while for convective rain $D_{m} = 1.69$ mm and $\text{log}_{10}(N_{w}) = 3.01$ m$^{-3}$ mm$^{-1}$. This implies that the average diameter and the number concentration are higher for convective rainfall than stratiform rain. \\
+
+\noindent The main goal is to simulate a large enough volume of convective rain. If this scenario does not represent a significant background even for the radio observatories with the highest detection capabilities, we can then exclude the hypothesis of hydrometeor scattering as the source transient horizon signals. \\ 
+
+\noindent According to the dataset analyzed in the paper~\cite{thomasCharacterizationRaindropSize2021a}, an example of average $LWC$ for convective rain in an Indian monsoon is $0.1 \times 10^{-6}$ g/cm$^{3}$. This translates into 40 raindrops/m$^{3}$, considering all particles to have $D = 1.69$ mm. \\
+
+\noindent Unstable clouds extend for tens of kilometers, simulating that many raindrops singularly is not feasible, instead, a first step can be tabulating the RCS of only a sphere of 5 meter radius (see Figure \ref{fig:drawing_sphere}). The simulation tool used is again MARES, this time run for multiple single spheres at a time. Results are shown in Section~\ref{sec:results_portion}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.3\textwidth]{images/sphere_of_droplets.png}
+	\caption{Spherical representation of a small portion of rain volume. The model is a collection of randomly distributed raindrops. For computational constraints, the sphere is restricted to be just a small portion of the whole perturbation, corresponding here to a 5 meter radius sphere.}
+	\label{fig:drawing_sphere}
+\end{figure}
+
+\newpage
+\subsection{Large rain volume}
+\label{sec:big_cloud}
+
+\noindent Having determined the RCS for a small spherical rain volume (see Section~\ref{sec:small_cloud}), we now model a larger volume as a collection of these smaller units. This approach utilizes the pre-computed $\sigma_{RCS}$ values tabulated for each $\theta$ and $\phi$ for the small volume (see Figure~\ref{fig:5m_sphere_better_resolution}).\\
+
+\noindent In Figure~\ref{fig:stack_spheres} is illustrated the combination of smaller portions or rain (e.g. spheres with $2r=5$ m) that together shape a bigger volume (e.g. a cube with $L = 50$ m), closer to a realistic, large rain volume. \\
+
+\noindent The size of the spherical reference volume is chosen under computational constraints. An excessively large volume leads to a prohibitive droplets count, reintroducing the initial computational bottleneck, while an excessively small volume necessitates an impractical number of iterations to simulate a full cloud. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/stack_of_spheres.png}
+	\caption{Matrix representation of a cloud. A large volume of rain can be defined as a stack of spherical smaller portions.}
+	\label{fig:stack_spheres}
+\end{figure}
+
+\noindent In the case of a cloud in the near field ($R_{\text{T}}\lambda \leq L^{2}$), each portion of it is a target with a dedicated $\theta$ and $\phi$ and can be redirected to the $\left(\theta, \phi \right)$ configuration. \\
+
+\noindent In this second simulation, for each scattering point, $\theta$ is found as the angle between the transmitter-target direction ($\vec{R}_{\text{T}}$) and the receiver-target direction ($\vec{R}_{\text{R}}$),
+
+\begin{equation}
+	\theta = \text{arccos}\left(\frac{\vec{R}_{\text{T}} \cdot \vec{R}_{\text{R}}}{\left|\vec{R}_{\text{T}}\right| \left|\vec{R}_{\text{R}}\right|}\right).
+\end{equation}
+
+\noindent And $\phi$ is the polarization scattering angle, defined as the angle between the polarization vector and the dedicated scattering plane for that target. The latter has a normal defined by: 
+
+\begin{equation}
+	\vec{n} = \frac{\vec{R}_{\text{T}} \times \hat{y}}{\left|\vec{R}_{\text{T}} \times \hat{y}\right|}
+\end{equation}
+
+\noindent with $\hat{y}$ as defined in Figure \ref{fig:frames}.\\
+
+\noindent The polarization vector is a different vector for each scattering point in the big cloud, because of the spherical nature of the wavefront in the near-field region. To showcase how the electric field changes along the surface of the front, the situation is replicated in Figure \ref{fig:frames}. \\
+
+\begin{figure}
+	\centering
+	\subfloat[\centering Wave direction coincident with $\hat{z}$.]{{\includegraphics[width=6.5cm]{images/polarization1.png} }}
+	\qquad
+	\subfloat[\centering Generic wave direction.]{{\includegraphics[width=6.5cm]{images/polarization2.png} }}
+	\caption{Definition of polarization angle in the wave frame (green axes). The polarization angle $\epsilon$ is defined with reference to the positive $\hat{y}_{w}$ semi-axis and going towards the positive $\hat{x}_{w}$ semi-axis. This angle is independent on the direction of the wave. The purple coordinate frame is the Earth frame.}
+	\label{fig:frames}
+\end{figure}
+
+\noindent To identify the polarization vector, knowing the wave direction $\hat{z}_{w}$ and the polarization angle $\epsilon$, we can make a coordinate transformation from the wave frame to the Earth frame. \\
+
+\noindent The polarization vector in the wave frame is obtained easily, considering $\epsilon$ is measured from $\hat{y}_{w}$:
+
+\begin{equation}
+	\vec{p}_{w} = \sin(\epsilon) \hat{x}_{w} + \cos(\epsilon) \hat{y}_{w}
+\end{equation}
+
+\noindent The next step is to write $\hat{x}_{w}$ and $\hat{y}_{w}$ in the Earth frame; a common choice is to pick $\hat{x}_{w}$ perpendicular to both $\hat{z}_{w}$ and $\hat{z}$.
+
+\begin{equation}
+	\hat{x}_{w} = \frac{\vec{z}_{w} \times \vec{z}}{\left| \vec{z}_{w} \times \vec{z} \right|}
+\end{equation}
+
+\noindent Thus, $\hat{y}_{w}$ is found trivially as it must complete the right-handed frame.
+
+\begin{equation}
+	\hat{y}_{w} = \hat{z}_{w} \times \hat{x}_{w}.
+\end{equation}
+
+\noindent Finally, the polarization vector in the Earth frame is: 
+
+\begin{equation}
+	\vec{p} = \sin(\epsilon) \left( \frac{\vec{z}_{w} \times \vec{z}}{\left| \vec{z}_{w} \times \vec{z} \right|} \right) + \cos(\epsilon) \left( \hat{z}_{w} \times \hat{x}_{w} \right)
+\end{equation}
+
+\noindent The polarization scattering angle $\phi$ is then found as the complementary of the I quadrant angle between the polarization vector and the normal ($\beta$ in Figures \ref{fig:plane_front} and \ref{fig:plane_back}) or, in the case of $\phi > \pi/2$, $\phi = \beta + \pi/2$. 
+
+\begin{equation}
+	\label{eq:phi}
+	\phi = \text{arcsin}\left(\frac{\left|\vec{p} \cdot \vec{n}\right|}{\left|\vec{p}\right| \left|\vec{n}\right|}\right) \hspace{1.5cm} \text{or} \hspace{1.5cm} \phi = \text{arccos}\left(\frac{\left|\vec{p} \cdot \vec{n}\right|}{\left|\vec{p}\right| \left|\vec{n}\right|}\right) + \frac{\pi}{2}
+\end{equation}
+
+\noindent Figure \ref{fig:plane_front} depicts two possible polarization directions, Figure \ref{fig:plane_front_a} shows a configuration where the angle $\phi$ between the scattering plane (in purple) and the polarization vector (in blue) is smaller than $\pi/2$ (note that the polarization vector is visualized behind the scattering plane). In Figure \ref{fig:plane_front_b} $\phi$ is larger than $\pi/2$. From the polarization plane, $\phi$ is measured clockwise as in Figure \ref{fig:geometry} and remember that $\phi \in [0, \pi]$. \\
+
+\begin{figure}
+	\centering
+	\subfloat[\centering $\phi$ smaller than $\pi/2$.]{{\includegraphics[width=6.5cm]{images/plane_front2.png} }\label{fig:plane_front_a}}
+	\qquad
+	\subfloat[\centering $\phi$ larger than $\pi/2$.]{{\includegraphics[width=6.5cm]{images/plane_front1.png} }\label{fig:plane_front_b}}
+	\caption{Target in the positive $\hat{x}$ semi-axis.}
+	\label{fig:plane_front}
+\end{figure}
+
+\noindent Figure \ref{fig:plane_back} illustrates the case where the target is in the negative $\hat{x}$ semi-axis. Figure \ref{fig:plane_back_a} shows a configuration where $\phi$ is smaller than $\pi/2$, while in Figure \ref{fig:plane_back_b} $\phi$ is larger than $\pi/2$.
+
+\begin{figure}
+	\centering
+	\subfloat[\centering $\phi$ smaller than $\pi/2$.]{{\includegraphics[width=6.5cm]{images/plane_back2.png} }\label{fig:plane_back_a}}
+	\qquad
+	\subfloat[\centering $\phi$ larger than $\pi/2$.]{{\includegraphics[width=6.5cm]{images/plane_back1.png} }\label{fig:plane_back_b}}
+	\caption{Target in the negative $\hat{x}$ semi-axis.}
+	\label{fig:plane_back}
+\end{figure}
+
+\newpage 
+
+\noindent In order to choose between Equations \ref{eq:phi} and determine if $\phi$ would be larger or smaller than $\pi/2$, one can consider the product $\left(s_{\beta} \cdot s_{y} \right)$ between $s_{\beta}$, the sign of the cosine of the angle between the electric field and $\vec{n}$
+
+\begin{equation}
+	s_{\beta} = \text{sgn}\left(\frac{\vec{p} \cdot \vec{n}}{\left|\vec{p}\right| \left|\vec{n}\right|} \right),
+\end{equation}
+
+\noindent and $s_{y}$, the sign of $\hat{y}$ coordinate of the cross product between the electric field and $\vec{n}$
+
+\begin{equation}
+	s_{y} = \text{sgn}\left(\frac{ \left(\vec{p} \times \vec{n} \right) \cdot \hat{y}}{\left|\vec{p}\right| \left|\vec{n}\right|} \right).
+\end{equation}
+
+\noindent If this product is negative ($-$), $\phi$ would be smaller than $\pi/2$, while if it is positive ($+$), $\phi$ would be larger than $\pi/2$. \\
+
+\noindent The product $s_{y} \cdot s_{\beta}$ is not defined in the case where $\vec{p}$ is parallel to $\vec{n}$, nor when it is perpendicular, which correspond respectively to $\phi = \pi/2$, and to $\phi = 0$ or $\pi$. \\
+
+\noindent These definitions are consistent because, since $\phi \in \left[ 0, \pi \right]$, when the electric field is in front of the scattering plane the measuring of $\phi$ starts from the right side of $\vec{n}$, and when it's on the back the measurement starts from the left side of $\vec{n}$. \\
+
+\noindent In the case where the target is in the positive $\hat{x}$ semi-axis (Figure \ref{fig:plane_front}), if the electric field is on the right side of $\vec{n}$ ($s_{y}$ positive) then the it is necessarily in front of the scattering plane, meaning $s_{\beta}$ is negative. Therefore the result is $-$, in agreement with the fact that $\phi$ measured as $<\pi/2$ from the right side of $\vec{n}$. If the electric field is on the left side of $\vec{n}$ ($s_{y}$ negative) then the field can either be in front or behind the plane. If it's in front, $s_{\beta}$ is negative, leading to $+$. If the electric field is behind the scattering plane $s_{\beta}$ is positive, leading to $-$ again, but the measuring starts on the left side of $\vec{n}$, going back to values of $\phi$ smaller than $\pi/2$. \\
+
+\noindent In the case where the target is in the negative $\hat{x}$ semi-axis (Figure \ref{fig:plane_back}) the reasoning is similar, only switching the left and right sides of $\vec{n}$. \\
+
+\noindent Lastly, we need to take into account the extinction and the phase shift (Equations \ref{eq:gamma_delta_functionofU}) in the cube (the rain volume). Assuming radio signals directed from the bottom of the cube, we define the attenuation efficiency $\eta_{\text{att}}(h)$ for every horizontal layer of the cube. When the layer number is $h = 0$ the attenuation is 1, no radio wave is blocked before entering the rain volume. The attenuation efficiency is a correction on the RCS of every spherical volume, and it is defined as:
+
+\begin{equation}
+	\label{eq:gamma}
+	\eta_{\text{att}}(h) = e^{-h D \gamma},
+\end{equation}
+
+\noindent where $D$ is the diameter of the small spherical volume, and $\gamma$ is the extinction factor for a volume of raindrops. See Section \ref{sec:application_volume_hydrometeors} for details on $\gamma$ and Appendix \ref{app:AppendixC.1} for the derivation of the attenuation efficiency.\\
+
+\noindent Additionally, as presented in Section \ref{sec:application_volume_hydrometeors}, a phase shifting factor must be added to the free space phase $\varphi$ of the wave emitted by each portion of rain volume:
+
+\begin{equation}
+	\label{eq:delta}
+	\delta = \frac{\pi N \nu}{\lambda}\Re[U] \hspace{1cm} \text{radians/distance}.
+\end{equation}
+
+
+\section{Final adaptation of MARES}
+\label{sec:final_adaptation}
+
+\noindent Implementing the cloud model to the original adaptation of MARES is, on one side, more straightforward, since the evolution of a cloud during the transmission of the signal is negligible, while the cascade travels at superluminar speed. On the other side, the large size of a typical cloud, forces to set aside the separation in Rayleigh regions, too many of them would be necessary for it to be convenient. In Section~\ref{sec:spherical_volume_implementation} is presented the implementation of scattering by small, spherical volumes containing droplets, subsequently, in Section~\ref{sec:large_volumes_implementation}, a similar modus operandi is applied to simulate a large rain volume.
+
+\subsection{Spherical volumes implementation}
+\label{sec:spherical_volume_implementation}
+
+\noindent In order to tabulate the response at multiple $\theta$s, several spherical volumes are defined, with the same size and $LWC$, but placed in different positions, generating the reference grid.\\
+
+\noindent In order to vary $\phi$, for every sphere are cycled couples of transmitters and receivers. Every couple has a different polarization angle $\epsilon \in [0, \pi]$. The cycle for a single sphere can be run in parallel with the other spheres.\\
+
+\noindent When a single event (one transmitter, one receiver and one sphere) is considered, the setting can proceed as originally implemented. Only, the number of sources now is not given by the resolution but by the $LWC$ and the volume $V$ of the sphere. \\
+
+\noindent The number of droplets is calculated as $\lceil nV \rceil$, with
+
+\begin{equation}
+	n=\frac{LWC}{(4/3)\pi a^{3}\rho_{w}} \hspace{1cm} \text{and} \hspace{1cm} V = \frac{4}{3}\pi r^{3}.
+\end{equation}
+
+\noindent In this case, the re-emitting sources, or scattering points, are the droplets. For every droplet the $A_{\text{e,iso}}$ is give by Equation \ref{eq:effective_area}, and the start time is put to 0 s. \\
+
+\noindent In this case the scattering points are distributed randomly throughout the volume of the sphere. First, is selected a random height $z \in [-1, 1]$ and a random azimuthal angle $\in [0, 2\pi]$. The point is then scaled by the sphere's radius and moved to the sphere's center location. \\
+
+\noindent After the random distribution is created, for every scattering point, the absolute distance between it and the transmitter or receiver is defined. This allows to calculate the arrival time as 
+
+\begin{equation}
+	t_{\text{arrival}} = 0 + (R_{\text{T}}+R_{\text{R}})/c_{\text{air}} \hspace{1cm} \text{and} \hspace{1cm} c_{\text{air}} \sim c_{\text{vac}}.
+\end{equation}
+
+\noindent Again, the phase depends on $R_{\text{T}}$ and $R_{\text{R}}$:
+
+\begin{equation}
+	\varphi = 2\pi/\lambda \cdot (R_{\text{T}}+R_{\text{R}})
+\end{equation}
+
+\noindent and the directivity $D(\theta, \phi)$ is set to Equation \ref{eq:directivity_factor} for every droplet in the sphere.\\
+
+\noindent The simulation is run at the same way as originally intended, for every step $t$ in time the contribution of every scattering point is calculated as:
+
+\begin{equation}
+	\sigma_{\text{RCS,p}}(t) = \cos^{2}(-\varphi+2\pi f t)A_{\text{e,iso}}(t)D(\theta, \phi)
+\end{equation}
+
+\begin{equation}
+	V_{\text{p}}(t) = \frac{\lambda}{R_{\text{T}}R_{\text{R}}} \sqrt{\frac{P_{\text{T}} G_{\text{T}}G_{\text{R}}}{(4\pi)^{3}} R_{\text{Load}} } \cos(-\varphi+2\pi f t)\sqrt{A_{\text{e,iso}}(t)D(\theta, \phi)}\eta_{\text{PLF}}.
+\end{equation}
+
+\noindent The derivation of $\eta_{\text{PLF}}$ is found in Appendix \ref{app:AppendixC.2}, here we just report that, for any target considered in this work, $\eta_{\text{PLF}}=1$.\\
+
+\noindent Both the $\sigma_{\text{RCS,p}}$ and $V_{p}$ are summed over all scattering points to get a list of values that describe the response of the whole spherical rain volume for every time stamp $t$.
+
+\subsection{Large volumes implementation}
+\label{sec:large_volumes_implementation}
+
+\noindent When a single event (one transmitter, one receiver and one rain volume) is considered, the setting can proceed as originally implemented. Only this time the number of sources is determined by the size of the cloud divided by the size of the spherical volumes = 2 $\cdot$ r.\\
+
+\noindent The sources are positioned in a matrix such that the cloud's position is at the center of the base of the cloud. \\
+
+\noindent The start time of every scattering point (the small spherical volumes) is again put to 0 s, since the cloud is considered static. For every source, the angles $\theta_{\text{p}}$ and $\phi_{\text{p}}$ are found as explained in Section \ref{sec:big_cloud}, according to their position in the matrix.\\
+
+\noindent The RCS of every scattering point is fixed to the corresponding tabulated one, times an attenuation efficiency $\eta_{\text{att}}(h) = e^{-hD\gamma}$. The correspondence to the table is done comparing $\theta_{\text{p}}$ and $\phi_{\text{p}}$ to the reference grid.\\
+
+\noindent The extinction coefficient $\gamma$ and phase shift $\delta$ are calculated once for all spherical volumes, following Equations \ref{eq:gamma_delta_functionofU}.\\
+
+\noindent The calculation of the arrival time for every sphere and the execution of the simulation are similar to the previous case, only this time the contribution of every scattering point doesn't include $D(\theta, \phi)$, otherwise it would be considered twice.
+
+\begin{equation}
+	\sigma_{\text{RCS,p}}(t) = \cos^{2}(-\delta-\varphi+2\pi f t)\sigma_{\text{RCS}, \theta_{\text{p}}, \phi_{\text{p}}}\eta_{\text{att}};
+\end{equation}
+
+\begin{equation}
+	\label{eq:code_equation_voltage}
+	V_{\text{p}}(t) = \frac{\lambda}{R_{\text{T}}R_{\text{R}}} \sqrt{\frac{P_{\text{T}} G_{\text{T}}G_{\text{R}}}{(4\pi)^{3}} R_{\text{Load}} } \cos(-\delta-\varphi+2\pi f t)\sqrt{\sigma_{\text{RCS}, \theta_{\text{p}}, \phi_{\text{p}}}\eta_{\text{att}}}\eta_{\text{PLF}},
+\end{equation}
+
+\noindent with $\eta_{\text{PLF}}=1$.\\
+
+\noindent Finally, both the $\sigma_{\text{RCS,p}}(t)$ and $V_{p}(t)$ are summed over every scattering point to get a list of values for every time stamp $t$, these values are describing the effect of the whole cloud.
+
+\section{Partial conclusions}
+
+\noindent The software adopted to solve the hydrometeor scattering problem is a radar modeling tool called MARES (Macroscopic Approximation of the Radar Echo Scatter). This code allows to calculate the Radar Cross Section (RCS) of a target as the sum of its components, and therefore to predict its radar echo. \\
+
+\noindent The components, in the case of this study, are the water droplets that constitute an unstable cloud, or rain volume. Unfortunately, the number of hydrometeors is too excessive to simulate the response of each meteor singularly, and the size of the cloud is too large to consider sectioning into coherent scattering regions. This issue is resolved with the simulation of a smaller volume of rain, the response of which is tabulated, as a function of the position respect to the transmitting and receiving antennas.\\
+
+\noindent The fundamental principles on which MARES builds make it extremely versatile, this thesis proves it, and remarks its importance for the astroparticle physics field and probably many others.

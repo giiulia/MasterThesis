@@ -1,0 +1,123 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Astroparticle radio detection}{7}{chapter.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}The astroparticle scenario}{7}{section.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.1}Cosmic rays}{8}{subsection.1.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.2}Cosmic neutrinos}{9}{subsection.1.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.3}Gamma ray astronomy}{9}{subsection.1.1.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}The radio detection technique}{10}{section.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.1}Traditional radiotelescopes}{10}{subsection.1.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.2}Astroparticle radiotelescopes}{12}{subsection.1.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.2.2.1}Radio emission from particle cascades}{12}{subsubsection.1.2.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.2.2.2}The geometry of radio emission of particle cascades}{13}{subsubsection.1.2.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.2.2.3}Modern experiments}{14}{subsubsection.1.2.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.3}Phenomenological motivation}{16}{section.1.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.4}Partial conclusions}{17}{section.1.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Radio wave propagation through the atmosphere}{19}{chapter.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}History of radio}{20}{section.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}The Earth's atmosphere}{20}{section.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Interference mechanisms on radio wave propagation}{22}{section.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}Long-range interference propagation mechanisms}{24}{section.2.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.1}Clear-air irregularities in the troposphere}{24}{subsection.2.4.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.2}Ionospheric propagation}{26}{subsection.2.4.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.3}Propagation in rain and clouds}{27}{subsection.2.4.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.5}Absorption and scattering from rain and clouds}{32}{section.2.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.1}Refractive indices of water and ice}{32}{subsection.2.5.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.2}Absorption and scattering by a single particle}{36}{subsection.2.5.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.3}Application to a single hydrometeor}{38}{subsection.2.5.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.4}Absorption and scattering by a volume of particles}{40}{subsection.2.5.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.5}Application to a volume of hydrometeors}{42}{subsection.2.5.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.6}Partial conclusions}{43}{section.2.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Implementation of hydrometeor scattering}{45}{chapter.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}The radar approach to hydrometeor scattering}{45}{section.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.1}Radar classification and regimes}{46}{subsection.3.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.2}Radar equations}{48}{subsection.3.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}The MARES modeling software}{49}{section.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.1}The principles of MARES}{49}{subsection.3.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.2}The original use case of MARES}{50}{subsection.3.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Modeling hydrometeor scattering}{52}{section.3.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.1}Single raindrop}{53}{subsection.3.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.2}Small spherical rain volume}{54}{subsection.3.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.3}Large rain volume}{57}{subsection.3.3.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.4}Final adaptation of MARES}{61}{section.3.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.4.1}Spherical volumes implementation}{61}{subsection.3.4.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.4.2}Large volumes implementation}{62}{subsection.3.4.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.5}Partial conclusions}{63}{section.3.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Results}{65}{chapter.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Software sanity checks}{65}{section.4.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.1}Single slit diffraction figure}{65}{subsection.4.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.2}Thin square plate as a collection of coherent scattering regions}{67}{subsection.4.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Rain volumes simulations}{68}{section.4.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2.1}Results for a single raindrop}{70}{subsection.4.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2.2}Results for a small spherical rain volume}{71}{subsection.4.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2.3}Results for a large rain volume}{71}{subsection.4.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Final conclusions and future prospects}{77}{chapter.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {A}The atmosphere's layers}{79}{appendix.1.A}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.1}Troposphere}{79}{section.1.A.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.2}Stratosphere}{79}{section.1.A.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.3}Mesosphere}{79}{section.1.A.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.4}Ionosphere}{79}{section.1.A.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {B}Ducting propagation}{81}{appendix.1.B}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {C}Attenuation of electromagnetic waves}{85}{appendix.1.C}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {C.1}Extinction}{85}{section.1.C.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {C.2}Polarization effects}{86}{section.1.C.2}%

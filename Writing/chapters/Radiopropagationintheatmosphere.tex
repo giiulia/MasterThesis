@@ -1,0 +1,743 @@
+\chapter{Radio wave propagation through the atmosphere} \label{chap: Radiopropagation}
+
+\noindent This chapter begins with a brief history of radio (see Section~\ref{sec:history}), the discovery of which revolutionized global telecommunications through wireless propagation of information. As a result, anthropogenic signals populate the Earth's atmosphere, complicating the signal reconstruction of astroparticle traces by radiotelescopes. \\
+ 
+\noindent The prediction procedure for the evaluation of interference between stations on the surface of Earth requires extensive knowledge about not only the atmosphere itself, for this, see Section~\ref{sec:atmosphere}, but also about the mechanisms by which radio waves travel in the atmosphere, discussed in Section~\ref{sec:intereference}. \\
+
+\noindent Section~\ref{sec:long-range} elaborates on the mechanisms that operate mostly long-range, which are the topic of interest because signals coming from beyond the horizon have more probability of being misidentified for astroparticle traces, due to directionality distortion.\\
+
+\noindent Among the long-range interference mechanisms, we discuss clear-air irregularities, ionospheric propagation and reflection on rain and clouds. Propagation through rain and clouds is unique because it is omnidirectional. This means poor weather is more likely to cause unexpected signals than other tropospheric effects. Furthermore, because rain and clouds occur in the lower atmosphere, the interference distance is shorter, making the signal stronger than from higher sources of reflection like the ionosphere. Fore these reasons, in Section~\ref{sec:rain_and_clouds}, absorption and scattering from hydrometeors (clouds' water droplets, raindrops and ice crystals) is analyzed in depth.\\
+
+\noindent This thesis assesses whether interference from hydrometeor scattering is strong enough to disrupt high-sensitivity radio telescopes used in astroparticle research. Should the findings indicate negligible impact, subsequent investigations will focus on evaluating the effects of atmospheric ducting and ionospheric reflection.
+
+\newpage
+
+\section{History of radio}
+\label{sec:history}
+
+\noindent In the late 19th century, Heinrich Hertz conducted his pioneering experiments on radio waves, the intent was to validate James Clerk Maxwell’s electromagnetic theory by demonstrating that radio waves could be generated, transmitted, and detected~\cite{barclayPropagationRadioWaves2003}. Hertz’s experiments likely employed frequencies between 50 and 500 MHz, chosen by adjusting the dimensions of his radiating structures (spark-gap transmitters\footnote{Hertz’s spark-gap transmitter is composed by two hollow zinc spheres of diameter 30 cm which are 3 meters apart. These act as capacitors. A 2 mm thick copper wire is run from the spheres into the middle, where there is a spark-gap. Today we would describe this oscillator as a half-wave dipole antenna.}~\cite{HowHeinrichHertz}). The produced wavelengths allowed observable wave phenomena such as reflection, refraction, and interference within the confined space of his laboratory. Heinrich Hertz’s results provided the basis for the development of wireless telegraphy and radio. \\
+
+\noindent Following Hertz’s discoveries, Sir Oliver Lodge expanded on this work by demonstrating one of the first public wireless communication systems, operating in the very high frequency (VHF) range. Lodge’s system successfully transmitted signals across a lecture hall, covering distances of approximately 60 meters. This early demonstration illustrated the potential of radio waves for information exchange~\cite{barclayPropagationRadioWaves2003}. \\
+
+\noindent Guglielmo Marconi, recognizing the practical implications of wireless telegraphy, refined these early systems by scaling up antenna structures, thereby lowering transmission frequencies. Shifting to longer wavelengths allowed Marconi to exploit the superior range of lower-frequency radio waves, which experience less attenuation and can follow the curvature of the Earth via ground wave and skywave propagation. In groundwave propagation, the radio waves travel close to the Earth's surface. In fact, when a wave-front induces electrical currents in the Earth's surface (water or terrain), it slows down. Instead, radio waves reflected or refracted back towards Earth from the ionosphere are called skywaves. Marconi's successful trans Atlantic transmission in 1901 marked a turning point, proving that radio communication could span vast distances, revolutionizing global telecommunications. 
+
+\section{The Earth's atmosphere} 
+\label{sec:atmosphere}
+
+\noindent As radio communication systems evolved, so did the need to understand and characterize the propagation environment. Unlike idealized free-space conditions where waves propagate uniformly in all directions without obstruction, real-world environments introduce complexities such as reflection, diffraction and absorption due to terrain, buildings, weather conditions, and ionospheric effects. These factors introduce signal variability, multipath interference, fading, and distortion, all of which challenge the reliability and performance of wireless systems. Except for inter-satellite services, where the propagation path may be entirely in near free-space conditions, propagation for all radio applications may be affected by the Earth and its surrounding atmosphere.\\
+
+\noindent The atmosphere weakly conducts electricity due to a small number of charged ions, which are created when an electron is separated from a molecule of oxygen (O$_{2}$) or nitrogen (N$_{2}$) in the atmosphere, creating a positive ion. The electron is then very quickly captured by a neutral molecule of oxygen or nitrogen, creating a negatively charged ion. Positive and negative ions are thus created at the same rate (see Figure~\ref{fig:ions}). \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/ions.png}
+	\caption{Schematic representation of ionization in the Earth’s atmosphere. A ionizing particle, colliding with a neutral molecule of air, creates one positive and one negative ion. Figure taken from~\cite{nicollEarthsElectricAtmosphere2016}.}
+	\label{fig:ions}
+\end{figure}
+
+\noindent The ionization can be caused by any of the following mechanisms.
+
+\begin{itemize}
+	\item [-] \textbf{Galactic cosmic rays}: Highly energetic hydrogen and
+	helium nuclei, thought to be generated outside our solar system. They generate a cascade of ions as they penetrate downwards through the atmosphere, providing the main source of ionization in the atmosphere above the surface.
+	\item [-] \textbf{Natural radioactivity from soil and rocks}: This produces
+	ionization over land (not over the oceans), and can only penetrate upwards from the surface to altitudes of about 1 km.
+	\item [-] \textbf{Solar cosmic rays}: An infrequent source of
+	atmospheric ionization, solar particles are produced by solar flares, and accelerated towards Earth during coronal mass ejections. Like cosmic rays, they produce a cascade of ionization through the atmosphere, but typically do not penetrate down to the surface (the aurora in Figure~\ref{fig:temperature_profile}). 
+\end{itemize}
+
+\noindent Clouds play a crucial role in the atmosphere's electrical activity, not as conductors, but by transferring electrical charge. This process begins when water droplets and ice crystals within a cloud capture free-moving ions. Lighter, positively charged ice crystals rise to the top, while heavier, negatively charged particles sink to the middle and lower sections. This separation creates a massive voltage difference, both within the cloud and between the cloud and the ground. When the difference becomes too great, the air suddenly ionizes, forming a conductive plasma channel that we see as lightning.\\
+
+\noindent Separately, clouds also interact with radio waves. As detailed in Chapter~\ref{chap:implemetation}, this reflection is not an electrical phenomenon but a result of the dielectric properties of the water droplets and ice crystals themselves.\\
+
+\noindent The Earth's atmosphere has a temperature profile as sketched in Figure~\ref{fig:temperature_profile}. Of particular interest are the troposphere, the variations in atmospheric temperature, pressure and humidity, which are largely confined below the temperature minimum at the tropopause, and the ionosphere, the ionized part of the atmosphere. Full discussion on the atmosphere's layers can be found in Appendix~\ref{app:AppendixA}.
+
+\newpage
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/temperature_profile.png}
+	\caption{Mean temperature profile and heights of the atmosphere's layers. Temperature minima mark the transition between each layer. On the right, the main ionospheric regions are positioned at their typical height. Figure taken from~\cite{barclayPropagationRadioWaves2003}.}
+	\label{fig:temperature_profile}
+\end{figure}
+
+
+\section{Interference mechanisms on radio wave propagation}
+\label{sec:intereference}
+
+\noindent Radio wave propagation is interesting for many applications due to the vast bandwidths available at high frequencies. First of all, understanding propagation in the troposphere is complex due to irregularities in the refractive index profile and to the presence of rain and other hydrometeors; but is also crucial since human activity happens within the troposphere. In this region, signals are primarily limited to line-of-sight and groundwave paths, where diffraction and reflection from the landscape define the communication range. Finally, the profile of electron density in the ionosphere is capable of reflecting signals at high frequencies (HF,  $f \in$ [3 MHz; 30 MHz]) back to Earth, enabling skywave communication. There are occasional effects which permit some reflection or scatter back to Earth at very high frequencies (VHF, $f \in$ [30 MHz; 300 MHz]). \\
+
+\noindent As explained in the International Telecommunication Union - Radiocommunication sector (ITU-R) recommendation P.452~\cite{PredictionProcedureEvaluation2023}, interference may arise through a range of propagation mechanisms whose individual dominance depends on climate, radio frequency, time percentage of interest, distance and path topography. At any time, a single mechanism or more than one may be present. The principal interference propagation mechanisms are the ones depicted in Figures~\ref{fig:ITU_1} and~\ref{fig:ITU_2}. \\
+
+\begin{itemize}
+	\item[-] \textbf{Line-of-sight (LoS)}: Is the most straightforward path for interference. It describes propagation from an interfering transmitter to an unintentional receiver through a direct LoS path that exists in normal atmospheric conditions. An additional complexity can come into play when sub-path diffraction causes a slight increase in signal level. On paths longer than about 5 km, signal levels can be enhanced by multipath and focusing effects resulting from atmospheric stratification. These enhancement periods, however, are typically short-lived.
+	\begin{figure}
+		\centering
+		\includegraphics[width=1.\textwidth]{images/ITU_images_1.png}
+		\caption{The continuous, or long-term, interference propagation mechanisms include line-of-sight, diffraction and tropospheric scatter. Figure taken from~\cite{PredictionProcedureEvaluation2023}.}
+		\label{fig:ITU_1}
+	\end{figure}
+	\item[-] \textbf{Diffraction}: Beyond LoS and under normal conditions, diffraction effects generally dominate. The diffraction prediction capability must have sufficient utility to cover smooth-earth, discrete obstacle, irregular terrain and clutter situations.
+	\item[-] \textbf{Tropospheric scatter}: This mechanism defines the background interference level for longer paths (e.g. more than 100 - 150 km), where the diffraction field becomes very weak. However, except for a few special cases involving sensitive receivers or very high power interferers (e.g. radar systems), interference via troposcatter will not be powerful enough to be significant.
+	\item[-] \textbf{Surface ducting}: This is the most important short-term propagation mechanism that can cause interference over water and in flat coastal land areas. It can give rise to high signal levels over long distances (more than 500 km over the sea). Such signals can exceed the \textit{equivalent free-space level}\footnote{The \textit{equivalent free-space level}, or \textit{free-space path loss} is a theoretical benchmark. It represents the signal strength expected if the radio wave were traveling through a perfect, empty vacuum, with absolutely no obstacles, absorption, or other interfering effects.} under certain conditions. A more detailed explanation of the ducting effect can be found in Appendix~\ref{app:AppendixB}.
+	\item[-] \textbf{Elevated layer reflection and refraction}: The treatment of reflection and/or refraction from layers at heights up to a few hundred meters is of major importance as these mechanisms enable signals to overcome the diffraction loss of the terrain effectively under favorable path geometry situations. Again the impact can be significant over quite long distances (up to 250 - 300 km).
+	\item[-] \textbf{Hydrometeor scattering}: Hydrometeors are particles of water or ice present in the atmosphere such as rain, snow, or hail. Unlike clear-air signals that follow the predictable great-circle path (the shortest surface route between two points), hydrometeor scattering redirects transmissions over a wide range of angles. This creates unexpected interference links, allowing signals to reach receivers far from the intended path.
+\end{itemize}
+
+\noindent These phenomena cause RFI by directing unwanted terrestrial transmissions toward satellite Earth stations. For high-sensitivity astroparticle observatories, the problem is more severe, and becomes more unpredictable at low observation angles.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.\textwidth]{images/ITU_images_2.png}
+	\caption{The anomalous, or short-term, interference propagation mechanisms include multipath, ducting, layer reflection and hydrometeor scattering. Figure taken from~\cite{PredictionProcedureEvaluation2023}.}
+	\label{fig:ITU_2}
+\end{figure}
+
+\section{Long-range interference propagation mechanisms}
+\label{sec:long-range}
+
+\noindent Several interference mechanisms enable radio wave propagation beyond the horizon. Figure~\ref{fig:ITU_2} illustrates the short-lived mechanisms, which are all long-range, while tropospheric scatter (see Figure~\ref{fig:ITU_1}) is the only long-range, long-lasting one. In this section we elaborate these mechanisms, with particular interest in propagation through rain and clouds.
+
+\subsection{Clear-air irregularities in the troposphere}
+\noindent Electromagnetic waves propagating in the troposphere are refracted and scattered by variations in the radio refractive index $n$. The radio refractive index of the troposphere is due to the molecular constituents of the air, principally nitrogen, oxygen, carbon dioxide and water vapor. The value of $n$ deviates from unity because of the polarizability of these molecules. \\
+
+\noindent The deviation of $n$ from unity is very small in absolute terms, a typical value being 1.0003 at the earth’s surface. Because of the closeness of $n$ to 1, it is usual to work with the refractivity, $N$, defined by~\cite{barclayPropagationRadioWaves2003}:  
+
+\begin{equation}   
+	N = (n - 1) \times 10^{6}
+\end{equation}
+
+\noindent $N$ is dimensionless, but for convenience is measured in N units\footnote{N is a unit for the atmospheric refractivity (also $N$), the relationship with the index of refraction is defined by the formula above, so atmospheric refractivity typically ranges from 250 to 400 N units.}. Based on the Debye formula for the polarizability of polar (i.e. with a strong permanent electric dipole moment) and nonpolar molecules~\cite{debyePolarMolecules1929}, $N$ depends on the pressure $P$ (mbar), the absolute temperature $T$ (K) and the partial pressure of water vapor $e$ (mbar):
+
+\begin{equation}
+	\label{eq:refractivity}
+	N = 77.6\frac{P}{T}+3.73\times 10^{5} \frac{e}{T^{2}}
+\end{equation}
+
+\noindent The first term, known as \textit{dry} term is due principally to the nonpolar nitrogen and oxygen molecules, and the second term, known as \textit{wet} is from the polar water vapor molecules. The constants are empirically determined. \\
+
+\noindent The variation of $P$, $T$ and $e$ can be considered at various scales:
+
+\begin{itemize}
+	\item [(a)] On the global scale, the troposphere is stratified in horizontal layers due to the effect of gravity.
+	\item [(b)] On the medium scale (100 m – 100 km), the ground and meteorology can produce spatial and temporal variations.
+	\item [(c)] On the small scale (< 100 m), turbulent mixing causes scattering and scintillation.
+\end{itemize}
+
+\noindent From aircraft measurements we discovered that the global scale structure varies about two orders of magnitude more in the vertical direction than in the horizontal. Therefore, an assumption of horizontal stratification of the troposphere is justified on this scale.\\
+
+\noindent In an atmosphere at rest:
+\begin{itemize}
+	\item [-] With no heat sources, the \textbf{air pressure} can be shown to decrease exponentially with height, dropping to a fraction 1/$e$ of its value at the surface at a height of approximately 8 km (this is the \textit{scale height} $H$). 
+	\item [-] In unsaturated air, the \textbf{temperature} falls linearly with height at about 1$^{\circ}$C per 100 m, in literature, this is known as the \textit{dry adiabatic lapse rate}.
+	\item [-] The behavior of \textbf{water vapor pressure} is more complicated. Ignoring condensation, it would fall exponentially at the same rate as the pressure. However, air at a given temperature can hold only a limited amount of water vapor; the limit occurs at the saturated water vapor pressure ($e_{s}$), which varies from 43 mbar at 30$^{\circ}$C to 6 mbar at 0$^{\circ}$C. Above this limit, water condenses to form the water droplets which make clouds. Since the saturation vapor pressure decreases as temperature decreases, and temperature decreases with height, condensation will occur above a certain height, reducing the water vapor content of the air. Thus the water vapor pressure decreases more rapidly with height than pressure and for practical purposes is negligible above 2 or 3 km.
+\end{itemize}
+
+\noindent The net effect of the variations in $P$, $T$ and $e$ is that $N$ decreases with height. On average, $N$ decreases exponentially in the troposphere:
+
+\begin{equation}
+	\label{eq:exponential_N}
+	N = N_{s} e^{-z/H},
+\end{equation}
+
+\noindent where $N_{s}$ is the surface value of refractivity, $z$ is the height above the surface and $H$ is the scale height.\\
+
+\noindent If the refractive index were constant, radio waves would propagate in straight lines. Since $n$ decreases with height, rays are bent downwards toward the Earth, a phenomenon described by ray-tracing optics. An immediate consequence of ray bending is that the radio horizon lies further away than the visible horizon (as in Figure~\ref{fig:radio_horizon}). \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/radio_horizon.png}
+	\caption{Extension of radio horizon due to tropospheric bending respect to the optical horizon. The scale is greatly exaggerated here.}
+	\label{fig:radio_horizon}
+\end{figure}
+
+\noindent For a radio path extending through the atmosphere, this refractive bending causes the elevation angle of a ray at the ground to be greater than if the atmosphere were not present. These elevation angle offsets can be important, for example, in estimating target heights from radar returns.\\
+
+\noindent Finally, ducting can generate situations where radio waves propagate from transmitter to receiver by more than one path. This is referred to as multipath.
+
+\subsection{Ionospheric propagation}
+
+\noindent The ionosphere significantly affects the propagation of high frequencies (HF, $f \in $ [3; 30 MHz]) and ultrahigh frequencies (UHF, $f \in $ [300 MHz; 3 GHz]) signals which pass through it. The effects are varied and include refraction, phase delay and scintillation.
+
+\begin{itemize}
+	\item [-] \textbf{Refraction}: Occurs because the ionosphere is a plasma with varying electron density, which bends radio waves as they pass through. For HF signals, this bending can be strong enough to curve the signal back to Earth, enabling long-distance skywave communication. At higher frequencies (VHF/UHF), refraction is weaker but still causes slight path deviations, contributing to positioning errors in systems like GPS.
+	\item [-] \textbf{Phase delay}: Refers to the slowing down of radio waves due to the refractive index of the ionosphere being greater than that of a vacuum. This delay is frequency-dependent, lower frequencies experience more delay than higher ones. In GPS, this results in range errors, where the measured signal travel time is longer than the true geometric delay. This bulk delay can be partially corrected using dual-frequency measurements.
+	\item [-] \textbf{Scintillation}: Involves rapid, small-scale fluctuations in signal strength and phase caused by irregularities in electron density within the ionosphere, particularly in equatorial and polar regions. This is most severe during solar activity peaks. When scintillation is severe, the GPS receiver may lose track of the signal's phase, resulting in a temporary loss of phase lock with the carrier signal transmitted by satellites. Additionally, multipath effects can enhance scintillation.
+	\item [-]  \textbf{Multipath effects}: They further complicate transmission, as a single transmitted pulse can be reflected by multiple ionospheric layers, resulting in multiple received pulses that may overlap or arrive at different times. Additionally, signals may undergo multiple reflections, bouncing between the ionosphere and the ground, further elongating and distorting the received signal. This leads to: time-delayed echoes, constructive/destructive interference (resulting in deep signal fades), polarization splitting (this is due to the Earth’s magnetic field, causing two orthogonally polarized waves to travel at different speeds and along slightly different paths). In some cases, signals may arrive via distinct high and low-angle paths, adding to the complexity. At VHF and above, multipath effects often manifest as rapid phase and amplitude scintillation-like fluctuations.
+\end{itemize}
+
+\subsection{Propagation in rain and clouds}
+
+\noindent Water appears in the atmosphere in a variety of forms, usually referred to by the term hydrometeor, which includes particles as diverse as clouds' droplets, fog, rain drops, ice crystals, snowflakes, hail and graupel. Of these, rain, hail, graupel and snow are generally recognized as precipitation. The effects that hydrometeors have on communications systems are dependent mostly on the system's frequency and the types of particles present. \\
+
+\noindent A rapidly changing volume of hydrometeors can distort significantly environmental radio signals, emulating transient signals on which experiments that target neutrino interactions aim to trigger. Since hydrometeor scattering can act almost omnidirectionally, this interference can happen even when the perturbation is not in the direct signal path, and therefore is not expected.
+
+\subsubsection*{Rain}
+\label{sec:rain}
+
+\noindent Rain drops in free fall are not spheroids (except for the smallest drops). Instead, their true shape is an oblate spheroid with a flattened base. As the drop size increases above 4 mm, the base actually becomes concave. In scattering calculations, it is usual to model the shapes as simple oblate spheroids. Since this work is preliminary, only spheres will be considered. \\
+
+\noindent Precipitating clouds (rain), are modeled in the literature by their drop size distribution $N(D)$, where $D$ is the dimension of the droplet. This function is defined such that $N(D)dD$ is the number of drops per cubic meter with drop diameters between $D$ and $D + dD$. As all but the smallest drops are non-spherical, $D$ is usually defined as being that of an equivolumic sphere. \\
+
+\noindent While no drop-size distribution model is universally accepted as physically truthful, even as a statistical mean over many rain events. A perfect representation is fortunately not essential for specific modeling applications. \\
+
+\noindent The standard literature models use an exponential form for $N(D)$:  
+
+\begin{equation}
+	N(D) = N_{0}e^{-\Lambda D}
+\end{equation}
+
+\noindent Early work~\cite{marshallDistributionRaindropsSize1948} indicated that $\Lambda$ tends to decreases with the rain rate $R$, and that these distributions can be reduced to a one-parameter family by treating the relation as deterministic, with:
+
+\begin{equation}
+	\Lambda = 4.1 R^{-0.21}
+\end{equation}
+
+\noindent where $\Lambda$ is in mm$^{-1}$ and $R$ is in mm$\cdot$h$^{-1}$.\\
+
+\noindent Once $\Lambda$ is determined from $R$, so is $N_{0}$ by the requirement that the integral 
+
+\begin{equation}
+	 \int_{0}^{\infty} N(D)D^{3} V(D) dD = R.
+\end{equation}
+
+\noindent Here $V$ is the drop's terminal velocity. This form of distribution is known as the \textit{Marshall–Palmer} distribution. \\
+
+\noindent The \textit{Laws–Parsons} distribution~\cite{dewolfLawsParsonsDistributionRaindrop2001}, which predates the Marshall–Palmer approach and is also frequently used, is an empirically measured form for N(D) which is tabulated numerically rather than defined mathematically. It is similar to the Marshall–Palmer form except that it has slightly fewer small drops. \\
+
+\noindent Subsequent work, which followed the development of disdrometers, instruments capable of automatically record the size distribution of drops, showed that the shape of the distribution could vary significantly, which led to a more general function, the \textit{gamma-type} distribution, being proposed:
+
+\begin{equation}
+	\label{eq:gamma_distribution}
+	N(D) = N_{0} D^{m}e^{(-3.67+m)D/D_{0}}
+\end{equation}
+
+\noindent As shown in Figure~\ref{fig:drop_sizes}, positive values of $m$ reduce the numbers of drops at both the large and small ends of the size spectrum, compared with the exponential distribution obtained when $m = 0$. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/drop_sizes.png}
+	\caption{Examples of three different gamma-type distributions for drop sizes, with a rainfall rate of 5 mm$\cdot$h$^{-1}$, and a $D_{0}$ value of 1 mm. The solid line corresponds to $m=0$, the dashed line to $m=5$ and the dotted one to $m=-2$. Figure taken from~\cite{barclayPropagationRadioWaves2003}.}
+	\label{fig:drop_sizes}
+\end{figure}
+
+\noindent Observations of quantities which are very sensitive to large drops, such as radar differential reflectivity, and certain cross-polarization measurements have been well fitted using a gamma distribution with $m$ between 3 and 5.
+
+\subsubsection*{Clouds and fog}
+\noindent Non-precipitating clouds containing only liquid water are not very significant for frequencies below approximately 40 GHz. The liquid water content is too low to cause much absorption of energy and the droplets are too small to cause scattering; being virtually spherical, they do not cause measurable cross polarization.\\
+
+\noindent Liquid water contents vary from about 0.1 g/m$^{3}$ in stratiform clouds, through to 0.5 g/m$^{3}$ in cumulus clouds, up to around 2 g/m$^{3}$ in cumulonimbus clouds. The liquid water content typically peaks about 2 km above the cloud base then decreases towards the top of the cloud. \\
+
+\noindent Fog can be considered to have similar physical properties to clouds, except that it occurs close to the ground.
+
+\subsubsection*{Ice crystals}
+
+From the radio propagation point of view, single crystals at high altitudes appear to be the most important form of atmospheric ice, as they give rise to cross-polarization effects. A very crude picture which nevertheless appears adequate is to divide them broadly into plate and prism (or needle) forms. \\
+
+\noindent The first group includes simple hexagonal plates with typical diameters up to 0.5 mm and thicknesses of perhaps 1/10 of the diameter. The second group includes a variety of long thin shapes including both needles and hexagonal prisms, typical lengths are around 0.5 mm, and the ratio between length and width ranges from one to five. \\
+
+\noindent The type of crystal depends in a complex way on the temperature at which it formed, and hence on the altitude. In the range -8$^{\circ}$C to -27$^{\circ}$C, plate types are typical, below -27$^{\circ}$C prisms are formed.
+
+\newpage
+\subsubsection*{Snow}
+
+\noindent Snow consists of aggregated ice crystals, with large flakes forming only at temperatures just below freezing. In stratiform rain most of the ice is present as large flakes down to a few hundred meters above the melting level, and at greater heights single crystals are mainly present. Snow has minimal impact on radio wave propagation below 30 GHz. Its low density (generally around 0.1 g/m$^{3}$), results in a permittivity close to air, and the random tumbling of ice flakes negates significant polarization effects.
+
+\subsubsection*{Melting layer}
+
+In stratiform rain (widespread, steady precipitation), partially melted snowflakes exist within a height interval of about 500 m around the 0 °C isotherm, and this melting layer can produce intense radio scattering effects, due to a combination of factors. The melting particles combine a large size with a large apparent permittivity, intrinsically scattering and attenuating strongly compared with the dry ice above and smaller raindrops below. The effect is magnified by their high spatial density, relative to the rain, because of their relatively small fall velocity. Fall speeds increase gradually as the melting process becomes complete, with a consequent decrease in particle number densities. \\
+
+\noindent The consequences of these effects are shown in Figure~\ref{fig:melting_layer}, where the 3 GHz backscatter radar reflectivity is shown as a function of height during a typical stratiform rain event. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/melting_layer.png}
+	\caption{Radar reflectivity and differential backscatter reflectivity as functions of height obtained with the Chilbolton radar. The plot shows an increase of reflectivity for horizontally polarized signals around the melting layer. Figure taken from~\cite{barclayPropagationRadioWaves2003}.}
+	\label{fig:melting_layer}
+\end{figure}
+
+\noindent Also shown in Figure \ref{fig:melting_layer}, is the difference in scattered power between horizontal and vertical polarization. In fact, the differential reflectivity is defined as
+
+\begin{equation}
+	Z_{DR} = 10 \cdot \text{log}_{10} \frac{Z_{H}}{Z_{V}}
+\end{equation}
+
+\noindent while the radar reflectivity is typically the reflectivity measured in horizontal polarization $Z_{H}$. It can be seen that the large melting snowflakes scatter the horizontal component much more strongly than the vertical due to their larger horizontal dimensions. \\
+
+\noindent Above the melting layer, the lower permittivity of snow reduces the differential scatter, except where, as near 5 km height, there are significant quantities of highly asymmetrical ice plates, which can produce slight $Z_{DR}$ signals because they orient horizontally as they fall. Below the melting layer, oblate raindrops (flattened horizontally due to air resistance) produce measurable positive differential scatter. In this example, the small changes in reflectivity and differential reflectivity with respect to height within the rain are due to wind shear effects, rather than, for example, evaporation, which would reduce drop size with height, but the patterns don't match evaporation's signature.
+
+\subsubsection*{Hail and graupel}
+
+\noindent Particles of hail and graupel are mainly formed by the accretion of supercooled cloud droplets in convective storms     (localized, intense precipitation). Hail particles have densities close to that of water, and are often of roughly spherical shape, although a wide variety of shapes have been recorded. Graupel has a density intermediate between those of hail and snow and is usually of conical shape. Although of a higher apparent permittivity than snow, dry hail and graupel are only weakly attenuating below 30 GHz and do not appear to be very important for wave propagation effects. However, when they begin to melt, they scatter like very large raindrops. Noticeable polarization effects might be expected.
+
+\section{Absorption and scattering from rain and clouds} 
+\label{sec:rain_and_clouds}
+
+\noindent The presence of particles in a beam of electromagnetic radiation causes the extinction of the beam. Extinction refers to absorption and scattering by the particles. The magnitude of the extinction depends on the chemical composition of the particles, their size, shape, orientation, the surrounding medium, the number of particles and the polarization state and frequency of the incident beam. \\
+
+\noindent In Section~\ref{sec:refractive_index} is introduced a model to calculate the complex refractive index of water and ice. Subsequently, the extinction phenomenon will be initially presented through its general features shared by all particles (Section~\ref{sec:extinction_single_particle} and Section \ref{sec:application_single_hydrometeor}), following up with detailed solutions specific for hydrometeors (Section~\ref{sec:extinction_volume_particles} and Section \ref{sec:application_volume_hydrometeors}). All hydrometeors considered in this work are assumed spherical and smaller than the incident wavelength.
+
+\subsection{Refractive indices of water and ice}
+\label{sec:refractive_index}
+
+\noindent To comprehend the interactions of radio waves with hydrometeors, a vital factor is the complex refractive index $n$ (or, equivalently, the permittivity $\epsilon_{r}$, equal to $n^{2}$) of the water or ice forming the particle. The definition used in this thesis is the following:
+
+\begin{equation}
+	n = n^{'} - i n^{''},
+\end{equation}
+
+\noindent here, the real part $n^{'}$ is the refractive index and indicates the phase velocity (how much the wave slows down and its phase shifts), while the imaginary part $n^{''}$ is called the extinction coefficient and indicates the amount of attenuation when the electromagnetic wave propagates through the material. Both $n^{'}$ and $n^{''}$ are dependent on the frequency, this work will focus on VHF and UHF ($f \in [30$ MHz, $3$ GHz$]$). In most circumstances $n^{''} > 0$ (light is attenuated) or $n^{''} = 0$ (light travels forever without loss).\\
+
+\noindent An alternative convention uses $n = n^{'} + in^{''}$, but where $n^{''} > 0 $ still corresponds to loss. Therefore, these two conventions are inconsistent and should not be confused. The difference is related to defining sinusoidal time dependence as $\Re[e^{-i\omega t}]$ versus $\Re[e^{+i \omega t}]$~\cite{ComplexConjugateAmbiguity}. \\
+
+\noindent That $n^{''}$ refers to attenuation can be seen considering a plane electromagnetic wave traveling in the z-direction though a real medium. In this case complex wave number $\vec{k}$ is related to the complex refractive index $n$ through $k = 2\pi n/\lambda_{0}$, with $\lambda_{0}$ being the vacuum wavelength.
+
+\begin{equation}
+	\begin{split}
+		\vec{E}(z, t) &= \Re [\vec{E}_{0} e^{-ikz+i\omega t}] = \Re [\vec{E}_{0} e^{-i2\pi (n^{'} - i n^{''}) z/\lambda_{0} + i\omega t}] = \\\\
+		&= e^{-2 \pi n^{''}z/\lambda_{0}} \Re [\vec{E}_{0}e^{-in^{'}z +i \omega t}]
+	\end{split}
+\end{equation}
+
+\noindent Here we see that $n^{''}$ gives an exponential decay, as expected from the Beer–Lambert law. Since intensity is proportional to the square of the electric field, intensity will depend on the depth into the material as 
+
+\begin{equation}
+	I(z) = I_{0} e^{-4 \pi n^{''}z/\lambda_{0}},
+\end{equation}
+
+\noindent and thus the absorption coefficient is $\gamma = 4\pi n^{''}/\lambda_{0}$. The attenuation length (the distance after which the intensity is reduced by a factor of 1/e) is $L{\text{att}} = 1/\gamma = \lambda_{0}/4\pi n^{''}$. \\
+
+\noindent The refractive index of liquid or solid water is influenced by two main frequency-dependent factors.
+
+\begin{itemize}
+	\item [-] \textbf{Dielectric response of water droplets and ice crystals}: This includes dipole polarization and resonant absorption. When an electromagnetic field is applied, dipoles try to align but are hindered by collisions and viscosity. This leads to resonant absorption at a characteristic frequency (typically in the microwave to far-infrared range, which corresponds to $\sim$ 30 - 90 GHz or 0.1 - 0.3 THz). At frequencies < 100 GHz, the relaxation of these dipoles is called Debye relaxation. See below for details. The result is $n^{''} > 0$ and a modified $n^{'}$. Liquid water has higher $n^{''}$ than ice at microwave frequencies, because the water molecules are free to rotate and align with the field, while, instead of Debye relaxation, ice exhibits weaker resonant absorption at much higher frequencies (far-infrared). Ice crystals in clouds can also introduce birefringence (different values of $n^{'}$ for different polarizations).
+	\item [-] \textbf{Scattering Effects (Mie and Rayleigh scattering)}: Cloud droplets ($\sim$ 1 - 50 $\mu m$) and raindrops ($\sim$ 0.1 - 5 mm) scatter EM waves differently: Mie scattering (when droplet size $\approx$ wavelength) modifies both phase and amplitude. Rayleigh scattering (droplets size $\ll$ wavelength, e.g., fog at optical frequencies) mostly affects attenuation increasing the extinction coefficient $n^{''}$. In this work, since the focus is on the VHF and UHF, which translate into wavelengths between 0.1 m and 10 m, only Rayleigh scattering will be significant.
+\end{itemize}
+
+\noindent The definition of the complex refractive index must be taken carefully. Formally the extinction consists of scattering in all directions plus absorption, as intended in the proper sense, by the particles themselves.\\
+
+\begin{comment}
+\noindent The refractive index and extinction coefficient, $n$ and $n^{''}$, are typically measured from quantities that depend on them, such as reflectance, $R$, or transmittance, $T$.
+\end{comment}
+
+\noindent An empirical model of the complex refractive indices for ice and liquid water is constructed by P. S. Ray in Reference~\cite{rayBroadbandComplexRefractive1972}. The model is applicable from -20$^{\circ}$C to 0$^{\circ}$C for ice and from -20$^{\circ}$C to 50$^{\circ}$C for water. This model covers a large spectral range, it was designed by fitting experimental data with empirical functions. \\
+
+\noindent The equations used in this study were extensions of the theory by Cole and Cole (a generalization of Debye’s model~\cite{coleDispersionAbsorptionDielectrics1941}) modified with a frequency independent conductivity term $\sigma$ to account for ionic impurities in water. \\
+
+\noindent The Debye relaxation model explains how polar molecules reorient in an alternating electric field. It introduces the concept of a relaxation time $\tau= \lambda_{s}/2\pi c$, the time it takes for dipoles to align with the field. The corresponding equations are
+
+\begin{equation}
+	\begin{matrix}
+		\epsilon^{'} = \epsilon_{\infty} + \frac{\epsilon_{s} - \epsilon_{\infty}}{1+ \left( \lambda_{s}/\lambda \right)^{2}}, \\\\
+		\epsilon^{''} = \frac{\left(\epsilon_{s} - \epsilon_{\infty}\right)\left(\lambda_{s}/\lambda \right) }{ 1+ \left( \lambda_{s}/\lambda \right)^{2} },
+	\end{matrix}
+\end{equation}
+
+\noindent where $\epsilon_{\infty}$ is the high frequency dielectric constant, $\epsilon_{s}$, the static constant, and $\lambda_{s}$ the relaxation wavelength. In the case of water $\lambda_{s}$ and $\epsilon_{s}$ are fitted to temperature-dependent data in the 300 MHz - 300 GHz frequency range.\\
+
+\noindent The temperature dependence of $\epsilon_{s}$ and $\lambda_{s}$ for liquid water are given by Reference~\cite{rayBroadbandComplexRefractive1972}
+
+\begin{equation}
+	\epsilon_{s} = 78.54 [1.0 - 4.579\times 10^{-3} (t - 25.0) + 1.19 \times 10^{-5}(t - 25.0)^{2} - 2.8 \times 10^{-8} (t - 25.0)^{3}],
+\end{equation}
+
+\begin{equation}
+	\lambda_{s} = 0.00033836 e^{[2513.98/(t+273)]},
+\end{equation}
+
+\noindent where $t$ is in Celsius.\\
+
+\noindent The final modified equations include Cole-Cole generalization that accounts for a distribution of relaxation times (not all dipoles respond identically) by adding a spread parameter $\alpha$ to broaden the relaxation peak. Additionally, Peter S. Ray includes the conductivity $\sigma$ and an empirical temperature dependence of all parameters on a wide range of frequencies.
+
+\begin{equation}
+	\begin{matrix}
+		\epsilon^{'} = \epsilon_{\infty} + \frac{(\epsilon_{s} - \epsilon_{\infty})[ 1 +(\lambda_{s}/\lambda)^{ 1 - \alpha} \sin(\alpha \pi/2)]}{1 + 2 (\lambda_{s}/\lambda)^{ 1 - \alpha} \sin(\alpha \pi/2) + (\lambda_{s}/\lambda)^{2(1 - \alpha)}}, \\\\
+		
+		\epsilon^{''} = \frac{(\epsilon_{s} - \epsilon_{\infty})(\lambda_{s}/\lambda)^{ 1 - \alpha} \cos(\alpha \pi /2)}{1 + 2(\lambda_{s}/\lambda)^{ 1 - \alpha} \sin(\alpha \pi/2)+ (\lambda_{s}/\lambda)^{ 2(1 - \alpha)} } + \frac{\sigma \lambda}{18.8496 \times 10^{10}}.
+	\end{matrix}
+\end{equation}
+
+\noindent The parameters were fit as functions of temperatures with the result:
+
+\begin{equation}
+	\begin{split}
+		&\epsilon_{\infty} = 5.27137 + 0.0216474\,t - 0.00181198\,t^{2}, \\
+		&\alpha = -16.8129/(t + 273) + 0.0609265, \\
+		&\sigma = 12.5664 \times 10^{8}.
+	\end{split}
+\end{equation}
+
+\noindent Finally, the empirical model for ice is designed to reproduce three key experimental features: the microwave refractive index $n^{'}$ equal to $1.78$ over the entire microwave spectrum, the low-frequency  conductivity equation, based on Wörz and Cole’s data, and absorption across infrared to microwave wavelengths.
+
+\begin{equation}
+	\begin{split}
+		&\epsilon_{s} = 203.168 + 2.5 t +0.15 t^{2}, \\
+		&\lambda_{s} = 9.990288\times 10^{-4} e^{13.200/[(t+273.0)1.9869]},\\
+		&\epsilon_{\infty} = 3.168, \\	
+		&\alpha = 0.288 + 0.0052 t +  0.00023 t^{2},\\ 
+		&\sigma = 1.26 e^{-12.500/[(t + 273.0)1.9869]}.
+	\end{split}
+\end{equation}
+
+\noindent In Figures~\ref{fig:relative_permittivity} and \ref{fig:refarctive_index} are represented the plots of $\epsilon_{r}$ and $n$ respectively for the case of 20$^{\circ}$C, which agree with the ones shown in the paper "Broadband Complex Refractive Indices of Ice and Water"~\cite{rayBroadbandComplexRefractive1972}. All simulations in this thesis were performed using this temperature.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/plots/Relative_permittivity.pdf}
+	\caption{Complex relative permittivity as a function of the incident wavelength for water at 20$^{\circ}$C.}
+	\label{fig:relative_permittivity}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/plots/Refractive_index.pdf}
+	\caption{Complex refractive index as a function of the incident wavelength for water at 20$^{\circ}$C.}
+	\label{fig:refarctive_index}
+\end{figure}
+
+\newpage
+\subsection{Absorption and scattering by a single particle}
+\label{sec:extinction_single_particle}
+
+\noindent The scattering of a plane harmonic wave by a single arbitrary particle in a non-absorbing medium is considered. The geometry of this problem is described in Figure~\ref{fig:scattering}. The Earth coordinate system defines the coordinate basis vectors $\hat{e}_{x}$, $\hat{e}_{y}$ and $\hat{e}_{z}$, while the scattering direction $\hat{e}_{r}$ and the forward direction $\hat{e}_{z}$ of the beam form the \textit{scattering plane}, which is analogous to the plane of incidence in problems of reflection. The scattering plane is uniquely determined in the 3D Earth frame by the azimuth angle $\phi$, except when $\hat{e}_{r} = \pm \hat{e}_{z}$, in this case any plane containing $\hat{e}_{z}$ is a suitable scattering plane. \\
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=0.4\textwidth]{images/scattering.png}
+	\caption{Diagram for the geometry of scattering by an arbitrary particle. First, we define the Earth frame by taking the origin $O$ of a Cartesian coordinate system $(x, y, z)$ anywhere inside the particle. The direction of propagation of the incident wave defines the $z$ axis. The scattered wave propagates in the direction $\hat{e}_{r}$, which is defined by the zenith angle $\theta$ and the azimuth angle $\phi$. Figure taken from~\cite{bohrenAbsorptionScatteringLight1998}.}
+	\label{fig:scattering}
+\end{figure}
+
+\noindent It is convenient to decompose the incident electric field $\vec{E}_{i}$, which lies in the $xy$ plane, into its parallel ($E_{i\parallel}$) and perpendicular ($E_{i\perp}$) components to the scattering plane:
+
+\begin{equation}
+	\vec{E}_{i} = \left(E_{0\parallel} \hat{e}_{i\parallel} + E_{0\perp} \hat{e}_{i\perp} \right) e^{-ikz + i\omega t} = \left(E_{\parallel} \hat{e}_{i\parallel} + E_{\perp} \hat{e}_{i\perp} \right) 
+\end{equation}
+
+\noindent where $k= 2\pi n/\lambda$ is the wave number in the medium surrounding the particle, in the case of hydrometeors, $n_{\text{air}} \sim 1$, $\omega = kc$ and $\lambda$ is the wavelength of the incident light in vacuum. \\
+
+\noindent The orthonormal basis vectors $\hat{e}_{i\perp}$ and $\hat{e}_{i\parallel}$ can be written:
+
+\begin{equation}
+	\hat{e}_{i\perp} = \sin(\phi)\hat{e}_{x} - \cos(\phi)\hat{e}_{y} \hspace{0.5cm} \text{and} \hspace{0.5cm} \hat{e}_{i\parallel} = \cos(\phi)\hat{e}_{x} + \sin(\phi)\hat{e}_{y}
+\end{equation}
+
+\noindent and form a right-hand triad with:
+
+\begin{equation}
+	\hat{e}_{i\perp} \times  \hat{e}_{i\parallel} =  \hat{e}_{z}.
+\end{equation}
+
+\noindent It useful to define a third coordinate system too: $\hat{e}_{r}$, $\hat{e}_{\theta}$ and $\hat{e}_{\phi}$, the orthonormal basis associated with the polar coordinate system ($r, \theta, \phi$). If the $x$ and $y$ components of the incident electric field are denoted by $E_{ix}$ and $E_{iy}$, then
+
+\begin{equation}
+	\begin{split}
+		E_{i\parallel} = \cos(\phi) E_{ix} + \sin(\phi) E_{iy}, \\\\
+		E_{i\perp} = \sin(\phi) E_{ix} - \cos(\phi) E_{iy}.
+	\end{split}
+\end{equation}
+
+\noindent At sufficiently large distances from the origin ($kr \gg 1$), in the \textit{far-field} region, the scattered electric field $\vec{E}_{s}$ is approximately transverse ($\hat{e}_{r} \cdot \vec{E}_{s} \simeq 0$) and has the asymptotic form:
+
+\begin{equation}
+	\vec{E}_{s} \sim \frac{e^{-ikr}}{ikr} \vec{A},
+\end{equation}
+
+\noindent where $\hat{e}_{r} \cdot \vec{A} = 0$. Therefore, the scattered field in the far-field region may be written:
+
+\begin{equation}
+	\vec{E}_{s} = E_{s\parallel} \hat{e}_{s\parallel} + E_{s\perp} \hat{e}_{s\perp},
+\end{equation}
+
+\begin{equation}
+	\hat{e}_{s\parallel} = \hat{e}_{\theta}, \hspace{0.25 cm} 	\hat{e}_{s\perp} = - \hat{e}_{\phi}, \hspace{0.25 cm} 	\hat{e}_{s\perp} \times \hat{e}_{s\parallel} = \hat{e}_{r}.
+\end{equation}
+
+\noindent The basis vector $\hat{e}_{s\parallel}$ is parallel and $\hat{e}_{s\perp}$ is perpendicular to the scattering plane. \\
+
+\noindent The electric fields are required to satisfy Maxwell's equations at all points where the permittivity $\epsilon$ and permeability $\mu$ are continuous (see Chapter 3 of Reference~\cite{bohrenAbsorptionScatteringLight1998}). However, as one crosses the boundary between particle and external medium, there is, in general, a sudden change in these properties. At such boundary points we can impose the following continuity conditions on the fields, designating as $S$ the surface of the particle:
+
+\begin{equation}
+	\begin{aligned}[c]
+		[\vec{E}_{2}(x) - \vec{E}_{1}(x)] \times \hat{n} &= 0, \\
+		[\vec{H}_{2}(x) - \vec{H}_{1}(x)] \times \hat{n} &= 0,
+	\end{aligned}
+	\qquad
+	\begin{aligned}[c]
+		\text{\ $x$ on $S$} \\
+	\end{aligned}.
+\end{equation}
+
+\noindent Because of the linearity of the boundary conditions, the amplitude of the field scattered by an arbitrary particle is a linear function of the amplitude of the incident field. The relation between incident and scattered fields is conveniently written in matrix form:
+
+\begin{equation}
+	\label{eq:Sfunction}
+	\begin{pmatrix}
+		E_{s\parallel}\\
+		E_{s\perp}
+	\end{pmatrix} = \begin{pmatrix}
+		S_{2} & S_{3}  \\
+		S_{4} & S_{1}  \\
+	\end{pmatrix} \frac{e^{-ik(r-z)}}{ikr}
+	\begin{pmatrix}
+		E_{i\parallel}\\
+		E_{i\perp}
+	\end{pmatrix},
+\end{equation}
+
+\noindent where the elements $S_{j}$ of the \textit{amplitude scattering matrix} depend, in general, on $\theta$, the \textit{scattering angle}, and the azimuth angle $\phi$. \\
+
+\noindent Rarely the real and imaginary parts of the four amplitude scattering matrix elements are known for all values of $\theta$ and $\phi$. To do so would require measuring the amplitude and the phase of the light scattered in all directions for two incident orthogonal polarization states, this is complicated by the challenge of measuring the polarization state. However, the amplitude scattering matrix elements are related to quantities the measurement of which poses considerably fewer experimental problems than phases. \\
+
+\noindent For convenience, we take the incident field $\vec{E}_{i} = E_{i}\hat{e}_{x}$ to be x-polarized. If the medium is non absorbing, we may choose $r$ sufficiently large such that we are in the far-field region where 
+
+\begin{equation}
+	\label{eq:E_scatt_X}
+	\vec{E}_{s} \sim \frac{e^{-ik(r-z)}}{ikr} \vec{X} E_{i}, \hspace{1cm} 	\vec{H}_{s} \sim \frac{k\omega}{\mu} \hat{e}_{r}\times \vec{E}_{s},
+\end{equation}
+
+\noindent and $\vec{X}$ is the \textit{vector scattering amplitude} and $\hat{e}_{r} \cdot \vec{X} = 0$. As a reminder that the incident light is x-polarized, $\vec{X}$ is related to the scalar amplitude scattering matrix elements $S_{j}$ as follows:
+
+\begin{equation}
+	\label{eq:X}
+	\vec{X} = \left(S_{2}\cos(\phi)+S_{3}\sin(\phi) \right) \hat{e}_{s\parallel} + \left(S_{4}\cos(\phi)+S_{1}\sin(\phi) \right) \hat{e}_{s\perp}.
+\end{equation}
+
+\subsection{Application to a single hydrometeor}
+\label{sec:application_single_hydrometeor}
+
+\noindent Under the assumption that all hydrometeors considered in this work are spherical, we start the discussion by referring to Chapter 4 of "Absorption and scattering by small particles"~\cite{bohrenAbsorptionScatteringLight1998}, which precisely targets spherical particles. The derivation of the scattering matrix elements starts by considering a incident x-polarized plane wave, here written in spherical polar coordinates,
+
+\begin{equation}
+	\vec{E}_{i} = E_{0} e^{-ikrcos(\theta)+i\omega t}\hat{e}_{x}, 
+\end{equation}
+
+\noindent where
+
+\begin{equation}
+	\label{eq:ex}
+	\hat{e}_{x} = sin(\theta)\cos(\phi) \hat{e}_{r}  + \cos(\theta)\cos(\phi)\hat{e}_{\theta} - \sin(\phi)\hat{e}_{\phi}.
+\end{equation}
+
+\noindent Afterwards, the incident wave is expanded in vector spherical harmonics. The series for the scattered wave is then truncated. From Reference~\cite{bohrenAbsorptionScatteringLight1998} we learn that spherical particles have $S_{3} = S_{4} = 0$ and $S_{1}$ and $S_{2}$ only depend on the scattering angle $\theta$. \\
+
+\noindent The matrix equation for an arbitrary direction $\theta \neq 0$ now gives the relations:
+
+\begin{equation}
+	\begin{matrix}
+		E_{s\perp} = S_{1}(\theta)\frac{e^{-ik(r-z)}}{ikr} E_{i\perp},	\\\\
+		E_{s\parallel} = S_{2}(\theta)\frac{e^{-ik(r-z)}}{ikr} E_{i\parallel}.
+	\end{matrix}
+\end{equation} 
+
+\noindent The actual expressions of $S_{1}$ and $S_{2}$ require long but straightforward derivations. Luckily, for our purposes, we can assume the scattering to be in the Rayleigh region.\\
+
+\noindent In the case of a scattering particle of radius $a$ and refractive index $n$, it is said to be the Rayleigh scattering region when it is both electrically small ($2\pi a/\lambda \ll 1$) and phase shifts across it are small ($2\pi n a/\lambda \ll 1$). Under these conditions Rayleigh’s approximation can be used, which assumes that:
+
+\begin{itemize}
+	\item [(a)] the scattered field is that of a dipole; 
+	\item [(b)] the dipole moment induced in the particle is related to the incident electric field in the same way as for electrostatic fields. 
+\end{itemize}
+
+\noindent According to Reference~\cite{barclayPropagationRadioWaves2003}, at radio frequencies, the approximation is especially useful for cloud droplets and atmospheric ice crystals, and it gives useful insight into rain scatter. \\
+
+\noindent An electrostatic field induces in a small, both electrically and in term of phase shift variations, spherical particle a dipole moment proportional to the field. Assuming this is true for a plane wave, we recall the plane harmonic x-polarized wave 
+
+\begin{equation}
+	\vec{E}_{i} = E_{0}e^{i\omega t}\hat{e}_{x},
+\end{equation}
+
+\noindent incident on an hydrometeor located at $z=0$. The wave induces in the particle a dipole moment proportional to the field. If $\vec{p}$ is the induced dipole moment, and $\alpha$ is the polarizability:
+
+\begin{equation}
+	\vec{p} = \alpha \vec{E}_{i}, \hspace{0.5cm} \text{with} \hspace{0.5cm} \alpha = \epsilon_{0} \xi(\epsilon_{r}-1)\nu.
+\end{equation}
+
+\noindent Here, $\nu$ is the particle’s volume and $\xi$ is the ratio of the internal to the external field. This ratio, for a sphere, is $\xi = 3/(\epsilon_{r} + 2)$. For a flat plate (or similar non-symmetrical geometries), $\xi$ is 1 when the field is applied along the longest axis, and is $1/\epsilon_{r}$ when applied along the shortest. \\
+
+\noindent The hydrometeor, and therefore oscillating dipole $\vec{p}(t) = \vec{p}_{0} e^{i\omega t}$, radiates an electric field in the far field ($r \gg \lambda$) given by:
+\begin{equation}
+	\label{eq:E_scatt}
+	\vec{E}_{\text{s}} = \frac{e^{-ikr}}{ikr}\frac{ik^{3}}{4\pi \epsilon_{0}} (\hat{e}_{r} \times \vec{p}) \times \hat{e}_{r},
+\end{equation}
+
+\noindent After some manipulation, Equation \ref{eq:E_scatt} can be put in the form of Equation \ref{eq:E_scatt_X}:
+
+\begin{equation}
+	\begin{aligned}
+		\label{eq:E_s_functionofX}
+		\vec{E}_{s} = \frac{e^{-ik(r-z)}}{ikr} &\vec{X} E_{i}, \hspace{1cm} E_{i} = E_{i,0}e^{-ikz+i\omega t}, \\
+		&\vec{X} = \frac{ik^{3}}{4\pi \epsilon_{0}} \alpha (\hat{e}_{r} \times \hat{e}_{x}) \times \hat{e}_{r},
+	\end{aligned}
+\end{equation}
+
+\noindent Finally, from Equations \ref{eq:X} and \ref{eq:ex} we have the scattering amplitudes for a spherical hydrometeor in the Rayleigh region:
+
+\begin{equation}
+	\label{eq:S1andS2}
+	S_{1} = \frac{ik^{3}\alpha}{4\pi \epsilon_{0}}, \hspace{1cm} S_{2} = \frac{ik^{3}\alpha}{4\pi \epsilon_{0}}\cos(\theta).
+\end{equation}
+
+\noindent This result can also be obtained by expanding the plane wave in vector spherical harmonics and considering the case $2\pi n a/\lambda \ll 1$. \\
+
+\noindent It is important to notice that we considered only scattering of x-polarized light, the scattered field for arbitrarily linearly polarized light, and hence any polarization state, follows the symmetry of the particle. Therefore, the result in Equation \ref{eq:S1andS2} is valid for any arbitrary linear polarization.
+
+\newpage
+\subsection{Absorption and scattering by a volume of particles}
+\label{sec:extinction_volume_particles}
+
+\noindent To study the effects of the extinction phenomenon in a medium, it is customary to model it as a collection of particles. Consider a slab of $N$ identical scattering particles per unit of volume. As shown in Figure \ref{fig:slab}, the forward traveling wave in a point P beyond the slab is coherently influenced only by particles in the active volume of the slab, which coincides with the few Fresnel\footnote{ A Fresnel zone is the region around the direct optical path where scattered waves arrive at point P with phase differences small enough to contribute coherently to the forward wave. Only particles within the first few Fresnel zones significantly affect the coherent field.} zones as seen from P. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/slab.png}
+	\caption{Diagram of the geometry for studying absorption and dispersion by a plane-parallel, homogeneous slab containing random particles. A plane wave illuminates the plane-parallel volume from below, and the total field in P is calculated to find the phase shift and extinction coefficient of the slab. Figure taken from~\cite{vandehulstLightScatteringSmall1957}.}
+	\label{fig:slab}
+\end{figure}
+
+\noindent The result of the total amplitude of the field in P (the reader can refer to Reference~\cite{vandehulstLightScatteringSmall1957} for the whole calculation) may be represented as the influence of a complex refractive index of the medium as a whole. Previously, the slab was modeled as a collection of identical particles. We now model it as a homogeneous material with a complex refractive index $n$ and thickness $l$. This allows the wave's phase and amplitude to be expressed as functions of n $n$ and $l$. \\
+
+\noindent The amplitude in free space doesn't know extinction nor phase shift:
+
+\begin{equation}
+	E_{i} = e^{-ikl+i\omega t},
+\end{equation}
+
+\noindent but, as the wave propagates through the medium, its amplitude changes:
+
+\begin{equation}
+	E_{s} = e^{-ikln + i \omega t}.
+\end{equation}
+
+\noindent Consequently, the relative change caused by the slab is 
+
+\begin{equation}
+	\label{eq:relative_change}
+	\frac{E_{s}}{E_{i}} = \frac{e^{-ikln}}{e^{-ikl}} = e^{-ikl(n-1)}.
+\end{equation}
+
+\noindent As introduced in Section \ref{sec:refractive_index}, it is now useful to express the real and imaginary part of the refractive index separately:
+
+\begin{equation}
+	\label{eq:refractive_index}
+	n = n^{'} - i n^{''}.
+\end{equation}
+
+\noindent Substituting the Equation \ref{eq:refractive_index} Equation in \ref{eq:relative_change}:
+
+\begin{equation}
+	e^{-ikl(n^{'} - i n^{''} -1)} = e^{-ikl(n^{'}-1)} e^{-kln^{''}}.
+\end{equation}
+
+\noindent The term $e^{-ikl(n^{'}-1)}$ induces a phase shift due to the modified phase velocity $c/n$. The term $e^{-kln^{''}}$ introduces attenuation (an exponential decay due to extinction).\\
+
+\noindent Therefore, the phase of the wave is modified by $-kl(n^{'}-1)$ where the factor 
+
+\begin{equation}
+	\delta = -k(n^{'}-1) \hspace{1cm} \text{radians/distance}
+\end{equation} 
+
+\noindent represents the phase shift per unit of distance. \\
+
+\noindent Additionally, the field decays exponentially inside the slab: 
+
+\begin{equation}
+	E_{s} = E_{i} e^{-kln^{''}}.
+\end{equation}
+
+\noindent Since the extinction coefficient $\gamma$ (specific attenuation per unit of distance) due to the slab is defined as:
+
+\begin{equation}
+	I(l) = I_{0}e^{-\gamma l},
+\end{equation} 
+
+\noindent and $I \propto \left| E \right|^{2}$, one can write:
+
+\begin{equation}
+	\gamma = 2 k n^{''} \hspace{1cm} \text{nepers/distance}.
+\end{equation} 
+
+\noindent If the complex refractive index $n$ is close to 1, as in the case of water, the relative change of the wave's amplitude introduced in Equation \ref{eq:relative_change} can be approximated as:
+
+\begin{equation}
+	\frac{E_{s}}{E_{i}} = 1 - ikl(n-1).
+\end{equation}
+
+\noindent Consequently, following Section 4.3 of Reference~\cite{vandehulstLightScatteringSmall1957}, the refractive index of the medium has the value:
+
+\begin{equation}
+	n = 1 - \frac{i2\pi NS(0)}{k^{3}},
+\end{equation}
+
+\noindent where $S(0)$ is the scattering function of the slab in the forward direction. \\
+
+\noindent Therefore we can write $\delta$ and $\gamma$ as a function of $S(0) = \Re[S(0)] - i \Im[S(0)]$:
+
+\begin{equation}
+	\label{eq:gamma_delta_functionofS(0)}
+	\begin{matrix}
+		\delta = k(n^{'}-1) = -\frac{\lambda^{2} N}{2 \pi} \Im [S(0)]  \hspace{1cm} \text{radians/distance}, \\\\
+		\gamma = 2kn^{''} = 8.68 \frac{2\lambda^{2} N}{2 \pi} \Re [S(0)] \hspace{1cm} \text{dB/distance},
+	\end{matrix}
+\end{equation}
+
+\noindent where it was used the equivalence $1 \text{ neper} = 20\cdot \text{log}_{10}(e) \text{ dB} \simeq 8.68 $ dB. These expressions are in agreement with equations (12.7) and (12.8) of the book "Propagation of radio waves"~\cite{barclayPropagationRadioWaves2003}, except for the factor 2 derived from having defined $\gamma$ relatively to the intensity $I$ instead of to the electric field.
+
+\subsection{Application to a volume of hydrometeors}
+\label{sec:application_volume_hydrometeors}
+
+\noindent A plane wave propagating through a medium containing N randomly distributed particles per unit volume experiences an attenuation and phase shift corresponding to Equations \ref{eq:gamma_delta_functionofS(0)}. For rain with a distribution of drop sizes, the term $NS$ can be rewritten as an integral over $D$ of $N(D)S(0,D)$. \\
+
+\noindent We want to express $S(0)$ for an hydrometeor in terms of the polarizability of water and substitute the result into Equation \ref{eq:gamma_delta_functionofS(0)}. \\
+
+\noindent For a single dipole, according to Equation \ref{eq:E_scatt}, the field scattered in the forward direction ($\theta = 0$), so when $\hat{e}_{r}$ and $\vec{p}$ are perpendicular, is:
+
+\begin{equation}
+	\vec{E}_{\text{s}} (0) = \frac{\omega^{2}}{4\pi \epsilon_{0}c^{2} r } e^{-ikr} \vec{p}.
+\end{equation}
+
+\noindent Since the scattering function is defined as in Equation \ref{eq:Sfunction}, $\vec{E}_{\text{s}} (0)$ can also be written as
+
+\begin{equation}
+	\label{eq:E_sfunctionofS(0)}
+	\vec{E}_{\text{s}} (0) = \frac{e^{-ikr}}{ikr}S(0)\vec{E}_{\text{i}}.
+\end{equation}
+
+\noindent If the spherical dipole is located in $z=0$: $S_{3} = S_{4} = 0$ and $\theta = 0$ leaves $S_{1} = S_{2}$.\\
+
+\noindent Substituting Equation \ref{eq:E_sfunctionofS(0)} in the dipole radiation expression for forward scattering, we get
+
+\begin{equation}
+	S(0) = i\frac{k \omega^{2}}{4 \pi \epsilon_{0} c^{2}} \alpha = i \frac{\omega^3}{4\pi \epsilon_{0} c^{3}} \alpha
+\end{equation}
+
+\noindent The book "Propagation of radio waves"~\cite{barclayPropagationRadioWaves2003} also defines a factor $U$ that depends on the shape and the relative permittivity of the particle:  
+
+\begin{equation}
+	\alpha = \epsilon_{0} \xi (\epsilon_{r} - 1) \nu = \epsilon_{0} U \nu.
+\end{equation}
+
+\noindent Note that $U$ is frequency dependent, such as $\epsilon_{r}$.\\
+
+\noindent In conclusion, the phase shift $\delta$ and extinction coefficient $\gamma$ as a function of $U = \Re [U] - i \Im [U]$ are:
+
+\begin{equation}
+	\begin{matrix}
+		\label{eq:gamma_delta_functionofU}
+		\delta = \frac{V \pi}{\lambda} \Re [U] \hspace{1cm} \text{radians/distance},\\\\
+		\gamma = 8.68 \frac{2 V \pi}{\lambda} \Im [U]\hspace{1cm} \text{dB/distance}.
+	\end{matrix}
+\end{equation} 
+
+\noindent Where $V = N\nu$ is the fractional volume of space occupied by the particles, regardless of how distributed they are between sizes.
+
+
+\section{Partial conclusions}
+
+\noindent Radio telecommunications populate the Earth's atmosphere creating a substantial problem for radio-based astroparticle experiments. Additionally, radio frequency interference (RFI) that originated beyond the horizon is bound to be even more difficult to reconstruct and filter than close-by sources. This is due to the effects of diffraction and reflection caused by the atmosphere's inhomogeneities, that distort the signals. Over long paths, radio signals can intercept rain or fog volumes, that, according to their nature, can scatter the electromagnetic fields, deviating them from the original path. This effect, called hydrometeor scattering, is the main object of interest for this thesis. \\
+
+\noindent The reasons for this interest are various. To begin with, hydrometeor scattering is not constantly present, therefore it is more difficult to filter out with calibration; moreover, it's omnidirectionality allows even to antennas that are not pointed towards the observatory to contribute to the RFI, originating unexpected signals.\\
+
+\noindent Regardless of the results of this work, future studies should take into consideration other long-range interference mechanisms, such as ducting (especially near coastal areas) and ionospheric reflection.\\
+
+\noindent The challenge addressed in this work is how to model scattering and absorption (together referred to as extinction) from a volume of hydrometeors. First, we have to consider the extinction due every meteor singularly, neglecting multiple scattering between particles. Second, to calculate the absorption and phase shift, the collection should be considered as an homogeneous medium with $n$ the refractive index of water or ice and $l$ the size of the volume.

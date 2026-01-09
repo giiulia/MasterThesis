@@ -1,0 +1,96 @@
+\documentclass[11pt, article, twoside,openright]{book}
+\usepackage[absolute]{textpos}	
+
+\usepackage[backend=biber, 
+style=phys,
+sorting=none,
+giveninits=true,
+maxnames=1, 
+minnames=1,
+articletitle=true, 
+chaptertitle=false]{biblatex}
+
+\DeclareFieldFormat[unpublished]{title}{"#1"}
+\DeclareFieldFormat[online]{title}{"#1"}
+
+% Dimensione dei margini
+\usepackage[a4paper,top=3cm,bottom=3cm,left=3cm,right=3cm]{geometry} 
+% Lingua del testo
+\usepackage[english]{babel}
+% Codifica del testo
+\usepackage[utf8]{inputenc} 
+% Encoding del testo
+\usepackage[T1]{fontenc}
+% Permette di generare testo fittizio. Mi è stato utile 
+% per capire quale sarebbe stata l'impostazione del 
+% testo nella pagina prima che scrivessi un determinato paragrafo
+\usepackage{booktabs}
+\usepackage{lipsum}
+% Per ruotare le immagini
+\usepackage{rotating}
+% Per modificare l'header delle pagine 
+\usepackage{fancyhdr}  
+
+% Per inserire gli hyperlinks
+\usepackage{hyperref}   
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	citecolor=magenta,
+	urlcolor=magenta
+}
+
+\addbibresource{thesis_references.bib}
+
+\fancypagestyle{plain}{%
+	\fancyhf{} % Clear all header and footer fields
+	\fancyhead[LE,RO]{\thepage} % Page numbers in top right/left
+	\renewcommand{\headrulewidth}{0pt} % Remove header line
+}
+
+\begin{document}
+	\noindent \textbf{Name:} Giulia Cantarini  \hfill \textbf{Nr:} 866117\\
+	\textbf{Telephone:}  + 39 334 9906587 \hfill \textbf{Degree:} Master of Science in Physics \\\\
+	\textbf{Supervisors:} Prof. Doct. Anna Nelles, Prof. Francesco Terranova\\
+	\textbf{Co-supervisors:} Doct. Enrique Huesca Santiago, Doct. Giulia Brunetti
+	
+	\vspace{0.3cm}
+	
+	\begin{center}
+		{\Large \bfseries Session of November 2025}
+	\end{center}
+	
+	\begin{center}
+		{Modeling the reflection of radio signals from atmospheric clouds as a near-horizon background for astroparticle observatories}
+	\end{center}
+	
+	\begin{center}
+		{\Large \bfseries Abstract}
+	\end{center}
+	
+	\vspace{0.1cm}
+	
+	\noindent Astroparticle physics arose from the desire to study and understand different mechanisms of particle production, their acceleration to the highest energies, and transport over cosmic scales. By observing high-energy particles from the cosmos, this field probes the extremes of fundamental interactions and investigates the nature of dark matter and dark energy, therefore exploring the origins of our universe. \\
+	
+	\noindent This branch of physics concerns the study of the so-called cosmic messengers. Cosmic rays, neutrinos and gamma rays can reach us from the most remote astronomical sources in the cosmos, carrying otherwise unreachable information. Over the last century, the energy spectrum of these particles has been explored. Its low-energy component through direct, space-based detection, while the most energetic particles, due to their lower flux, require ground-based observation of the extensive air showers they generate in our atmosphere.\\
+	
+	\noindent A powerful and proven method to detect secondary particle showers both in air and dense media, is the radio technique. Over the last 20 years, the radio technique was developed by pioneering experiments such as CODALEMA \cite{escudieMultiwavelengthObservationCosmicray2019}, AERA \cite{pierreaugercollaborationCosmicRayEnergyScale2024} and Tunka-Rex \cite{lenokTunkaRexVirtualObservatory2021}, targeting extensive air showers. In the meantime, in-ice shower development studies started with ANITA \cite{deaconuSearchUltrahighenergyNeutrinos2021}, ARA \cite{allisonLowthresholdUltrahighenergyNeutrino2022} and ARIANNA \cite{ariannacollaborationARIANNAMeasurementCosmic2019}. Next-generation experiments, like RNO-G \cite{rno-gcollaborationMultimessengerPotentialRadio2023}, are now pushing the boundaries of the radio technique. Of special interest to this work are near-horizon radio arrays, that aim to trigger on the secondary, horizontal air shower from an Earth-skimming cosmic neutrino (usually produced by a tau neutrino undergoing a charged-current interaction). Projects like GRAND \cite{decoeneRadiodetectionNeutrinoinducedAir2021}, BEACON \cite{southallDesignInitialPerformance2023} and TAROGE \cite{namTaiwanAstroparticleRadiowave2016} constitute the current cases of interest. By pointing towards the horizon, a large effective volume is targeted (e.g. the surrounding mountains), creating a highly sensitive instrument for the search of ultra-high-energy neutrinos. This is all covered in Chapter 1. \\
+	
+	\noindent An important challenge for all neutrino searches, is to distinguish the astroparticle signals from the surrounding backgrounds. The latter must be precisely understood, usually with very accurate simulations. Challenges include instrumental distortions, identifying the origin of the noise and, in the case of radio signals, propagation effects. In telecommunication studies, effects due to the atmosphere are categorized into clear-sky and overcast sky.\\
+	
+	\noindent This thesis focuses on radio detection of astroparticles and its struggles related to poor weather. Understanding how poor weather affects radio wave propagation is challenging because the conditions are constantly changing, unlike in clear weather. In particular, near-horizon radio signals are severely distorted by the atmosphere, due to their longer propagation path through the densest part of the atmosphere, where refractive and absorptive effects are magnified. Consequently, this variability severely complicates the accurate identification of noise sources and, ultimately, the development of a reliable background model. \\
+	
+	\noindent Chapter 2 clarifies the radio propagation mechanisms that dominate long-range detection, with a primary focus on the lower atmosphere (troposphere) effects. This focus is strategic: the troposphere concentrates the most significant atmospheric perturbations, and the signal power involved is higher due to its inverse dependence on the distance squared. While higher atmospheric layers may also present different challenges, this thesis focuses on the aforementioned low atmosphere in overcast conditions. To model the radio background, we must account for the presence of water droplets, rain, hail and graupel, in this field often referred to as hydrometeors. These particles scatter and absorb radio signals, effects which can be described analytically if the shape is spherical and the material is homogeneous, approximation that holds for fog or relatively small raindrops. \\
+	
+	\noindent In meteorology, weather radars are used to understand atmospheric perturbations, where the objective is to determine location and density of the perturbation by measuring the scattered radio signal sent from a known transmitter. For the goal of background characterization in astroparticle detection, the problem is inverted, the interest is towards modeling the expected noise contribution from known transient atmospheric reflections. \\
+	
+	\noindent This work presents a rigorous methodology for modeling the radar echo, quantified as the radar scattering cross-section, of a generic atmospheric perturbation, providing a quantifiable expected voltage on a single station, toy detector model. A particularly strong perturbation was simulated to validate the main hypothesis, which concerns the detectability of overcast reflection effects. \\
+	
+	\noindent A preexisting modeling software has been repurposed for this work, and introduced in Chapter 3: MARES (Macroscopic Approximation of the Radar Echo Scatter). This is a semi-analytical model originally implemented for the description of the radar echo of particle cascades in dense media. This model is extremely versatile because it is based on fundamental principles of electromagnetism.\\
+	
+	\noindent In Chapter 4, the necessary sanity checks of the code were performed, and an original solution to the modeling of large volumes of re-radiating sources (in this case, hydrometeors) was found and implemented in the original code. The challenge of testing a large parameter space was solved with the parallelization of the simulations. This work allowed to have a full view of the configurations in which hydrometeor scattering is a relevant background source. In particular, the received voltage depends on the geometry of the reflection, the frequency of the incident signal and the transmitted power. The simulation-based analysis in this thesis confirms that unstable clouds are a non-negligible source of background, future work is necessary to consider alternative weather conditions and the influence of clear-sky effects.
+	
+	\clearpage
+	\pagestyle{plain} % Forza lo stile plain per la bibliografia
+	\printbibliography[title=References]
+\end{document}
